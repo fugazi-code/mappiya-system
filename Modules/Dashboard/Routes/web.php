@@ -11,6 +11,10 @@
 |
 */
 
-Route::prefix('dashboard')->group(function() {
-    Route::get('/', 'DashboardController@index');
+use Modules\Dashboard\Http\Controllers\DashboardController;
+
+Route::middleware(['auth:web'])->group(function() {
+    Route::resource('/dashboard', DashboardController::class);
+//    Route::prefix('dashboard')->group(function() {
+//    });
 });
