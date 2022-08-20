@@ -38,5 +38,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'customer@example.com',
             'roles' => 4,
         ]);
+
+        User::factory(20)->create();
     }
 }
