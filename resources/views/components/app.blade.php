@@ -20,6 +20,20 @@
     <link rel="stylesheet" href="/theme/css/vertical-layout-light/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="/theme/images/favicon.png" />
+    <style>
+        .navbar .navbar-brand-wrapper .navbar-brand img {
+            height: 65px !important;
+        }
+        .navbar .navbar-brand-wrapper .brand-logo-mini img {
+            height: auto !important;
+        }
+        .navbar .navbar-brand-wrapper {
+            height: 69px !important;
+        }
+        .navbar .navbar-menu-wrapper {
+            height: 69px !important;
+        }
+    </style>
 </head>
 <body>
     {{ $slot }}
