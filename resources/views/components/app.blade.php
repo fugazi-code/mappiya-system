@@ -9,8 +9,32 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="/theme/vendors/feather/feather.css">
+    <link rel="stylesheet" href="/theme/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="/theme/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/theme/css/vertical-layout-light/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="/theme/images/favicon.png" />
 </head>
 <body>
     {{ $slot }}
+
+    <!-- plugins:js -->
+    <script src="/theme/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="/theme/js/off-canvas.js"></script>
+    <script src="/theme/js/hoverable-collapse.js"></script>
+    <script src="/theme/js/template.js"></script>
+    <script src="/theme/js/settings.js"></script>
+    <script src="/theme/js/todolist.js"></script>
+    <!-- endinject -->
 </body>
 </html>

@@ -11,10 +11,8 @@
 |
 */
 
-use Modules\Dashboard\Http\Controllers\DashboardController;
+use Modules\Dashboard\Http\Livewire\Dashboard;
 
 Route::middleware(['auth:web'])->group(function() {
-    Route::resource('/dashboard', DashboardController::class);
-//    Route::prefix('dashboard')->group(function() {
-//    });
+    Route::get('/dashboard', Dashboard::class)->name('dashboard');
 });
