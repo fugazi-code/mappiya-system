@@ -22,24 +22,6 @@ class DatabaseSeeder extends Seeder
              'roles' => 1,
          ]);
 
-        User::factory()->create([
-            'name' => 'Restaurant User',
-            'email' => 'restaurant@example.com',
-            'roles' => 2,
-        ]);
-
-        User::factory()->create([
-            'name' => 'Rider User',
-            'email' => 'rider@example.com',
-            'roles' => 3,
-        ]);
-
-        User::factory()->create([
-            'name' => 'Customer User',
-            'email' => 'customer@example.com',
-            'roles' => 4,
-        ]);
-
         AssignedUser::factory(10)->create();
     }
 }
