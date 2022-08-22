@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\AssignedUser;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -39,6 +40,6 @@ class DatabaseSeeder extends Seeder
             'roles' => 4,
         ]);
 
-        User::factory(20)->create();
+        AssignedUser::factory(10)->create();
     }
 }
