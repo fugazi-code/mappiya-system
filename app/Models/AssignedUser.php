@@ -12,6 +12,13 @@ class AssignedUser extends Model
     protected $fillable = [
       'user_id',
       'entity_id',
-      'entity',
+      'entity_type',
     ];
+
+    public function getDetails($id)
+    {
+        $model = $this->query()->where('user_id', $id)->firstOrFail();
+
+        return $model->entity_type::find($model->entity_id);
+    }
 }

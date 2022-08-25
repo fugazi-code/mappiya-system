@@ -24,7 +24,7 @@ class AssignedUserFactory extends Factory
 
         switch ($role) {
             case 2:
-                $params = ['entity_id' => Restaurant::factory()->create(), 'entity' => Restaurant::class,];
+                $params = ['entity_id' => Restaurant::factory()->create(), 'entity_type' => Restaurant::class,];
         }
 
         $params['user_id'] = User::factory()->create(['roles' => $role]);

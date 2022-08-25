@@ -14,4 +14,5 @@ use Modules\User\Http\Controllers\UserController;
 */
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/get/user', [UserController::class, 'index']);
+    Route::post('/user/details', [UserController::class, 'details']);
 });

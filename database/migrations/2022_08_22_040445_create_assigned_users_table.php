@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('entity_id');
-            $table->string('entity');
+            $table->string('entity_type');
             $table->timestamps();
         });
     }
