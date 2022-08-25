@@ -12,6 +12,9 @@ use Modules\User\Http\Controllers\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('/users', [UserController::class, 'allUsers']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/get/user', [UserController::class, 'index']);
     Route::post('/user/details', [UserController::class, 'details']);

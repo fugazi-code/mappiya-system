@@ -14,6 +14,11 @@ class UserController extends Controller
         return User::query()->find($request->get('id'));
     }
 
+    public function allUsers()
+    {
+        return User::query()->select(['email'])->get();
+    }
+
     public function details(Request $request)
     {
         return app(AssignedUser::class)->getDetails($request->get('id'));
