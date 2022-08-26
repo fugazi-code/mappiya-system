@@ -17,8 +17,18 @@ class AssignedUser extends Model
 
     public function getDetails($id)
     {
-        $model = $this->query()->where('user_id', $id)->firstOrFail();
+      $model = $this->query()->where('user_id', $id)->firstOrFail();
 
-        return $model->entity_type::find($model->entity_id);
+      return $model->entity_type::find($model->entity_id);
+    }
+
+    public function updateDetail($detail)
+    {
+
+      $model = $this->query()->findOrFail($detail['id']);
+
+      $model->entity_type::updateOrCreate(['id' => $model->entity_id], $detail);
+
+      return $model->entity_type::find($model->entity_id);
     }
 }

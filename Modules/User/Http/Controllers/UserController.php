@@ -23,4 +23,9 @@ class UserController extends Controller
     {
         return app(AssignedUser::class)->getDetails($request->get('id'));
     }
+
+    public function updateDetail(Request $request)
+    {
+        return app(AssignedUser::class)->updateDetail($request->all());
+    }
 }
