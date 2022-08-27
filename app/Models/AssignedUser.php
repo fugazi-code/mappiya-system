@@ -24,7 +24,6 @@ class AssignedUser extends Model
 
     public function updateDetail($detail)
     {
-
       $model = $this->query()->findOrFail($detail['id']);
 
       $model->entity_type::updateOrCreate(['id' => $model->entity_id], $detail);
