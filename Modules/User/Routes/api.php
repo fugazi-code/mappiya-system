@@ -16,7 +16,7 @@ use Modules\User\Http\Controllers\UserController;
 Route::get('/users', [UserController::class, 'allUsers']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/get/user', [UserController::class, 'index']);
+    Route::get('/get/user', [UserController::class, 'index']);
     Route::post('/user/details', [UserController::class, 'details']);
     Route::post('/user/update/detail', [UserController::class, 'updateDetail']);
     Route::post('/user/create', [UserController::class, 'create']);

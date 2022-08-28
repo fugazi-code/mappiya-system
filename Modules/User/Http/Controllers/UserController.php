@@ -7,12 +7,13 @@ use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class UserController extends Controller
 {
     public function index(Request $request)
     {
-        return User::query()->find($request->get('id'));
+       return PersonalAccessToken::findToken($request->bearerToken())->first()->tokenable;
     }
 
     public function allUsers()
