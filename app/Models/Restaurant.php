@@ -19,4 +19,9 @@ class Restaurant extends Model
         'is_available',
         'is_blocked'
     ];
+
+    public function userMorph()
+    {
+        return $this->morphMany(User::class, 'info');
+    }
 }

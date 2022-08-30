@@ -2,18 +2,21 @@
 
 namespace Modules\User\Http\Controllers;
 
+use App\Http\Resources\DetailResource;
 use App\Models\AssignedUser;
+use App\Models\Restaurant;
 use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Laravel\Sanctum\PersonalAccessToken;
+use Laravel\Ui\Presets\React;
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-       return PersonalAccessToken::findToken($request->bearerToken())->first()->tokenable;
+       return PersonalAccessToken::findToken(request()->bearerToken())->first()->tokenable;
     }
 
     public function allUsers()
@@ -21,14 +24,19 @@ class UserController extends Controller
         return User::query()->select(['email'])->get();
     }
 
-    public function details(Request $request)
+    public function detail()
     {
-        return app(AssignedUser::class)->getDetails($request->get('id'));
+        $model = PersonalAccessToken::findToken(request()->bearerToken())->first()->tokenable;
+        
+        return new DetailResource(User::query()->find($model->id)->info);
     }
 
     public function updateDetail(Request $request)
     {
-        return app(AssignedUser::class)->updateDetail($request->all());
+        $model = PersonalAccessToken::findToken(request()->bearerToken())->first()->tokenable;
+        $model->info_type::query()->find($model->info_id)->update($request->all());
+
+        return $model->info_type::query()->find($model->info_id);
     }
 
     public function create(Request $request)
