@@ -6,17 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Restaurant extends Model
+class Deliveryman extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable =[
-        "name",
+    protected $fillable=[
+        "phone_no",
         "address",
-        "longitude",
-        "latitude",
-        "is_available",
-        "is_blocked"
+        "plate_no",
+        "vehicle_id",
+        "profile_image",
+        "is_blocked",
+        "is_active",
     ];
 }
