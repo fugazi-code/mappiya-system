@@ -10,9 +10,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <!-- plugins:css -->
-    <link rel="stylesheet" href="/theme/vendors/feather/feather.css">
-    <link rel="stylesheet" href="/theme/vendors/ti-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="/theme/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="{{ asset('vandor/fontawesome/css/all.min.css') }}">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
@@ -38,6 +36,7 @@
 <body>
     {{ $slot }}
 
+    <script src="{{ asset('vandor/fontawesome/js/all.min.js') }}"></script>
     <!-- plugins:js -->
     <script src="/theme/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
