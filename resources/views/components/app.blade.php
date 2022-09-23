@@ -32,10 +32,12 @@
             height: 69px !important;
         }
     </style>
+    @livewireStyles
 </head>
 <body>
     {{ $slot }}
 
+    @livewireScripts
     <script src="{{ asset('vandor/fontawesome/js/all.min.js') }}"></script>
     <!-- plugins:js -->
     <script src="/theme/vendors/js/vendor.bundle.base.js"></script>

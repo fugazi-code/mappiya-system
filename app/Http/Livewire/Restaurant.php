@@ -26,13 +26,19 @@ class Restaurant extends Component
         'latitude' => 'required',
     ];
 
+    public function render()
+    {
+        return view('livewire.restaurant')->layout('layouts.admin');
+    }
+
     public function updated($propertyName) {
 
         $this->validateOnly($propertyName);
     }
 
-    public function submit()
+    public function store()
     {
+        dd($this->name);
         // $validatedData = $this->validate();
         // $longitude_float = (float)$this->longitude;
         // $latitude_float = (float)$this->latitude;
@@ -53,12 +59,8 @@ class Restaurant extends Component
         ]);
 
         // session() -> flash('success', 'Restaurant created');
-        
+
         // $this->reset();
     }
 
-    public function render()
-    {
-        return view('livewire.restaurant')->layout('layouts.admin');
-    }
 }
