@@ -32,6 +32,7 @@
             height: 69px !important;
         }
     </style>
+    @livewireStyles
 </head>
 <body>
     {{ $slot }}
@@ -48,6 +49,7 @@
     <script src="/theme/js/template.js"></script>
     <script src="/theme/js/settings.js"></script>
     <script src="/theme/js/todolist.js"></script>
+    @livewireScripts
     <!-- endinject -->
 </body>
 </html>
