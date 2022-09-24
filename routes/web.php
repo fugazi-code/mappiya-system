@@ -14,6 +14,7 @@ Route::middleware(['auth:web'])
      ->group(function () {
          Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
          Route::get('/restaurant', Restaurant::class)->name('restaurant');
+        //  Route::post('/restaurant', Restaurant::class)->name('restaurant');
          Route::get('/customer', Customer::class)->name('customer');
          Route::get('/delivery-people', DeliveryPeople::class)->name('delivery-people');
          Route::get('/promocodes', Promocodes::class)->name('promocodes');

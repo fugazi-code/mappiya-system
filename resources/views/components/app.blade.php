@@ -32,6 +32,9 @@
             height: 69px !important;
         }
     </style>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
     @livewireStyles
 </head>
 <body>
@@ -49,7 +52,19 @@
     <script src="/theme/js/template.js"></script>
     <script src="/theme/js/settings.js"></script>
     <script src="/theme/js/todolist.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+
     @livewireScripts
+    {{-- @stack('scripts') --}}
+    <script>
+        window.addEventListener('closeModal', event =>{
+            $('#create-cancel-btn').click();
+            $('#update-cancel-btn').click();
+            $('#delete-cancel-btn').click();
+        });
+    </script>
     <!-- endinject -->
+    
 </body>
 </html>
