@@ -19,4 +19,9 @@ class Restaurant extends Model
         "is_available",
         "is_blocked"
     ];
+
+    protected $attributes = [
+      'is_available' => 0,
+      'is_blocked' => 0,
+  ];
 }
