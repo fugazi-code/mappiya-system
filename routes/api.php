@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\SanctumTokenController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\RestaurantController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,22 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+// menu routes
+Route::get('/menu', [MenuController::class, 'index']);
+Route::post('/menu', [MenuController::class, 'store']);
+Route::get('/menu/{id}', [MenuController::class, 'show']);
+Route::put('/menu/{id}', [MenuController::class, 'update']);
+Route::delete('/menu/{id}', [MenuController::class, 'destroy']);
+Route::get('/menu/search/{name}', [MenuController::class, 'search']);
+
+// restaurant routes
+Route::get('/restaurant', [RestaurantController::class, 'index']);
+Route::get('/restaurant/{id}', [RestaurantController::class, 'show']);
+Route::post('/restaurant', [RestaurantController::class, 'store']);
+Route::put('/restaurant/{id}', [RestaurantController::class, 'update']);
+Route::delete('/restaurant/{id}', [RestaurantController::class, 'destroy']);
+Route::get('/restaurant/search/{name}', [RestaurantController::class, 'search']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

@@ -16,31 +16,12 @@ class Restaurant extends Component
 
     public $restaurant_id;
 
-
-    // public function updated($fields)
-    // {
-    //     $this->validateOnly($fields, [
-    //         'name' => 'required',
-    //         'address' => 'required',
-    //         'longitude' => 'required',
-    //         'latitude' => 'required',
-    //     ]);
-    // }
-
-    // public $openModal = false;
-
-
     protected $rules = [
         'name' => ['required'],
         'address' => ['required'],
         'longitude' => ['required'],
         'latitude' => ['required'],
     ];
-
-    // public function openCreateModal()
-    // {
-    //     $this->openModal = true;
-    // }
 
     public function store()
     {

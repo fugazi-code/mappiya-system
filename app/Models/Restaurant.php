@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Menu;
 
 class Restaurant extends Model
 {
@@ -24,4 +25,9 @@ class Restaurant extends Model
       'is_available' => 0,
       'is_blocked' => 0,
   ];
+
+  public function menus()
+  {
+    return $this->hasMany(Menu::class); 
+  }
 }
