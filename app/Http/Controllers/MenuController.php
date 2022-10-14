@@ -44,6 +44,7 @@ class MenuController extends Controller
      */
     public function show($id)
     {
+        $menu = Menu::find($id);
         return Menu::find($id);
     }
 
