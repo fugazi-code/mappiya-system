@@ -26,9 +26,10 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        return User::where('id', $id)->with('info')->get();
+    public function show(Request $request)
+    {   
+        $user_id = $request->user();
+        return User::where('id', $user_id['id'])->with('info')->get();
     }
 
     /**
@@ -38,35 +39,6 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Response $response, $id)
-    {
-        $fields = $request->validate([
-            'name' => 'string',
-            'email' => 'string|unique:users,email',
-            'roles' => 'in:3,4',
-        ]);
-        $user = User::find($id);
-        if(!$user) {
-            return response ([
-                'message' => 'Unable to find user'
-            ], 401);
-        }
-        switch($user['roles']) {
-            case 3:
-                // $class = Deliveryman::class;
-                $deliveryman = Deliveryman::find($user['info_id']);
-                $deliveryman->update($request->all());
-                break;
-            case 4:
-                $customer = Customer::find($user['info_id']);
-                $customer->update($request->all());
-                break;
-            default:
-                abort(404, "Invalid role");
-        };
-        $user->update($request->all());
-        return User::where('id', $id)->with('info')->get();
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -76,6 +48,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        return User::destroy($id);
+        $user_id = $request->user();
+        return User::destroy($user_id['id']);
     }
 }
