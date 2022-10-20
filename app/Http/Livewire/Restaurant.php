@@ -6,6 +6,7 @@ use WithPagination;
 use App\Models\Restaurant as RestaurantModel;
 use Illuminate\Http\Request;
 use Livewire\Component;
+use Illuminate\Validation\Validator;
 
 class Restaurant extends Component
 {
@@ -80,6 +81,11 @@ class Restaurant extends Component
         $this->address = '';
         $this->longitude = '';
         $this->latitude = '';
+    }
+
+    public function menu($id)
+    {
+        return redirect()->route('menu', ['id'=> $id]);
     }
 
     public function render()

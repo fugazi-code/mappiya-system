@@ -1,13 +1,8 @@
 <div>
-	<style>
-		nav svg {
-			height: 30px;
-		}
-	</style>
-
     <div class="row">
         <div class="col-md-12">
-            <h1>Restaurant</h1>
+            {{-- <h1>Menu</h1> --}}
+            <h1>{{$restaurant['name']}}'s Menu</h1>
             <button class="btn btn-primary" data-toggle="modal" data-target="#createModal">Create Restaurant</button>
         </div>
         <table class="table table-striped table-hover">
@@ -15,29 +10,28 @@
                 <tr>
                     <th>#</th>
                     <th>Name</th>						
-                    <th>Address</th>
-                    <th>Longitude</th>
-                    <th>Latitude</th>
-                    <th>Available</th>
-                    <th>Blocked</th>
+                    <th>Image</th>						
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Category</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($restaurants as $restaurant)
+                @foreach($menus as $menu)
                     
                 <tr>
-                    <td>{{$restaurant->id}}</td>
-                    <td>{{$restaurant->name}}</td>
-                    <td>{{$restaurant->address}}</td>                        
-                    <td>{{$restaurant->longitude}}</td>
-                    <td>{{$restaurant->latitude}}</td>
-                    <td>{{$restaurant->is_available}}</td>
-                    <td>{{$restaurant->is_blocked}}</td>
+                    <td>{{$menu->id}}</td>
+                    <td>{{$menu->name}}</td>
                     <td>
-                        <button class="btn btn-success" data-toggle="modal" wire:click="menu({{ $restaurant->id }})" >Menu</button>
-                        <button class="btn btn-warning" data-toggle="modal" data-target="#updateModal" wire:click="editRestaurant({{ $restaurant->id }})">Edit</button>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" wire:click="deleteRestaurant({{ $restaurant->id }})" >Delete</button>
+                        <img src={{$menu->image}} alt={{$menu->name}} />
+                    </td>
+                    <td>{{$menu->price}}</td>                        
+                    <td>{{$menu->description}}</td>
+                    <td>{{$menu->category}}</td>
+                    <td>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#updateModal" wire:click="editMenu({{ $menu->id }})">Edit</button>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" wire:click="deleteMenu({{ $menu->id }})" >Delete</button>
                     </td>
                 </tr>
                 @endforeach
@@ -50,7 +44,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="createModalId">Create Restaurant</h5>
+                        <h5 class="modal-title" id="createModalId">Create Student</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"
                             wire:click="closeModal"></button>
                     </div>
@@ -63,23 +57,34 @@
                                 <div>{{ $message }}</div> @enderror
                             </div>
                             <div class="col-md-12 mb-2">
-                                <label for="address">Address</label>
-                                <input wire:model="address" id="address" type="text" class="form-control"/>
-                                @error('address')
+                                <label for="category">Category</label>
+                                <select class="form-control" wire:model="category" id="category" type="text" class="form-control">
+                                    <option value="" disabled>Select Category</option>
+                                    <option value="Food">Food</option>
+                                    <option value="Drink">Drink</option>
+                                    <option value="Dessert">Dessert</option>
+                                </select>
+                                @error('category')
                                 <div>{{ $message }}</div> @enderror
 
                             </div>
                             <div class="col-md-12 mb-2">
-                                <label for="longitude">Longitude</label>
-                                <input wire:model="longitude" id="longitude" type="text" class="form-control"/>
-                                @error('longitude')
+                                <label for="description">Description</label>
+                                <input wire:model="description" id="description" type="text" class="form-control"/>
+                                @error('description')
                                 <div>{{ $message }}</div> @enderror
 
                             </div>
                             <div class="col-md-12 mb-2">
-                                <label for="latitude">Latitude</label>
-                                <input wire:model="latitude" id="latitude" type="text" class="form-control"/>
-                                @error('latitude')
+                                <label for="price">Price</label>
+                                <input wire:model="price" id="price" type="number" class="form-control"/>
+                                @error('price')
+                                <div>{{ $message }}</div> @enderror
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <label for="image">Image</label>
+                                <input wire:model="image" id="image" type="text" class="form-control"/>
+                                @error('image')
                                 <div>{{ $message }}</div> @enderror
                             </div>
                         </div>
@@ -93,13 +98,14 @@
             </div>
         </div>
 
-        <!-- Update Restaurant Modal -->
-        <div wire:ignore.self class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateRestaurantModalLabel"
+
+        <!-- Update Menu Modal -->
+        <div wire:ignore.self class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateMenuModalLabel"
         aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="updateRestaurantModalLabel">Edit Student</h5>
+                        <h5 class="modal-title" id="updateMenuModalLabel">Edit Menu</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" wire:click="closeModal"
                             aria-label="Close"></button>
                     </div>
@@ -112,23 +118,34 @@
                                 <div>{{ $message }}</div> @enderror
                             </div>
                             <div class="col-md-12 mb-2">
-                                <label for="address">Address</label>
-                                <input wire:model="address" id="address" type="text" class="form-control"/>
-                                @error('address')
+                                <label for="category">Category</label>
+                                <select class="form-control" wire:model="category" id="category" type="text" class="form-control">
+                                    <option value="" disabled>Select Category</option>
+                                    <option value="Food">Food</option>
+                                    <option value="Drink">Drink</option>
+                                    <option value="Dessert">Dessert</option>
+                                </select>
+                                @error('category')
                                 <div>{{ $message }}</div> @enderror
 
                             </div>
                             <div class="col-md-12 mb-2">
-                                <label for="longitude">Longitude</label>
-                                <input wire:model="longitude" id="longitude" type="text" class="form-control"/>
-                                @error('longitude')
+                                <label for="description">Description</label>
+                                <input wire:model="description" id="description" type="text" class="form-control"/>
+                                @error('description')
                                 <div>{{ $message }}</div> @enderror
 
                             </div>
                             <div class="col-md-12 mb-2">
-                                <label for="latitude">Latitude</label>
-                                <input wire:model="latitude" id="latitude" type="text" class="form-control"/>
-                                @error('latitude')
+                                <label for="price">Price</label>
+                                <input wire:model="price" id="price" type="number" class="form-control"/>
+                                @error('price')
+                                <div>{{ $message }}</div> @enderror
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <label for="image">Image</label>
+                                <input wire:model="image" id="image" type="text" class="form-control"/>
+                                @error('image')
                                 <div>{{ $message }}</div> @enderror
                             </div>
                         </div>
@@ -148,7 +165,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel">Delete Restaurant</h5>
+                        <h5 class="modal-title" id="deleteModalLabel">Delete Menu</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" wire:click="closeModal"
                             aria-label="Close"></button>
                     </div>
@@ -167,8 +184,4 @@
         </div>
 
     </div>
-
-    {{-- <div class="p-2 bg-indigo-50">
-        {{ $restaurants->links() }}
-    </div> --}}
 </div>
