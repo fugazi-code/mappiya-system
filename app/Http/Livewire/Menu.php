@@ -20,15 +20,15 @@ class Menu extends Component
     public $price;
     public $image;
 
+    public $count = 0;
+
     protected $rules = [
         'name' => 'required|string',
         'category' => 'required|string',
         'description' => 'required|string',
         'price' => 'required|numeric',
-        // 'image' => 'string',
     ];
 
-    // add restaurant_id
     public function store()
     {
         $this->validate();
@@ -42,6 +42,7 @@ class Menu extends Component
         ]);
         $this->resetInput();
         $this->dispatchBrowserEvent('closeModal');
+        $this->mount($this->restaurant_id);
     }
 
     public function editMenu(int $menu_id)
@@ -93,9 +94,10 @@ class Menu extends Component
     public function resetInput()
     {
         $this->name = '';
-        $this->address = '';
-        $this->longitude = '';
-        $this->latitude = '';
+        $this->category = '';
+        $this->description = '';
+        $this->price = '';
+        $this->image = '';
     }
 
     public function mount($id)

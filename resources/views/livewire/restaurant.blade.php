@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1>Restaurant</h1>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#createModal">Create Restaurant</button>
+            <button class="btn btn-primary" wire:click="resetInput" data-toggle="modal" data-target="#createModal">Create Restaurant</button>
         </div>
         <table class="table table-striped table-hover">
             <thead>

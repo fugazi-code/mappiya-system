@@ -3,12 +3,11 @@
         <div class="col-md-12">
             {{-- <h1>Menu</h1> --}}
             <h1>{{$restaurant['name']}}'s Menu</h1>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#createModal">Create Restaurant</button>
+            <button class="btn btn-primary" data-toggle="modal" wire:click="resetInput" data-target="#createModal">Create Menu</button>
         </div>
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>#</th>
                     <th>Name</th>						
                     <th>Image</th>						
                     <th>Price</th>
@@ -21,12 +20,15 @@
                 @foreach($menus as $menu)
                     
                 <tr>
-                    <td>{{$menu->id}}</td>
                     <td>{{$menu->name}}</td>
                     <td>
-                        <img src={{$menu->image}} alt={{$menu->name}} />
+                        @if($menu->image == null) 
+                            <img src={{"https://cdn2.iconfinder.com/data/icons/toolbar-edge/512/forbidden-512.png"}} alt={{$menu->name}} />
+                        @else
+                            <img src={{$menu->image}} alt={{$menu->name}} />
+                        @endif
                     </td>
-                    <td>{{$menu->price}}</td>                        
+                    <td>${{$menu->price}}</td>                        
                     <td>{{$menu->description}}</td>
                     <td>{{$menu->category}}</td>
                     <td>
@@ -44,7 +46,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="createModalId">Create Student</h5>
+                        <h5 class="modal-title" id="createModalId">Create Menu</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"
                             wire:click="closeModal"></button>
                     </div>
@@ -77,7 +79,7 @@
                             </div>
                             <div class="col-md-12 mb-2">
                                 <label for="price">Price</label>
-                                <input wire:model="price" id="price" type="number" class="form-control"/>
+                                <input wire:model="price" id="price" type="number" class="form-control" step="0.01" min="0"/>
                                 @error('price')
                                 <div>{{ $message }}</div> @enderror
                             </div>
@@ -138,7 +140,7 @@
                             </div>
                             <div class="col-md-12 mb-2">
                                 <label for="price">Price</label>
-                                <input wire:model="price" id="price" type="number" class="form-control"/>
+                                <input wire:model="price" id="price" type="number" class="form-control" step="0.01"/>
                                 @error('price')
                                 <div>{{ $message }}</div> @enderror
                             </div>
