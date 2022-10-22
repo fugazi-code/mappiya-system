@@ -25,23 +25,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/register', [RegisterController::class, 'register']);
-Route::get('/user', [UserController::class, 'index']);
-
-// menu routes
-Route::get('/menu', [MenuController::class, 'index']);
-Route::post('/menu', [MenuController::class, 'store']);
-// Route::get('/menu/{id}', [MenuController::class, 'show']);
-Route::put('/menu/{id}', [MenuController::class, 'update']);
-Route::delete('/menu/{id}', [MenuController::class, 'destroy']);
-Route::get('/menu/search/{name}', [MenuController::class, 'search']);
-
-// restaurant routes
-Route::get('/restaurant', [RestaurantController::class, 'index']);
-Route::get('/restaurant/{id}', [RestaurantController::class, 'show']);
-Route::post('/restaurant', [RestaurantController::class, 'store']);
-Route::put('/restaurant/{id}', [RestaurantController::class, 'update']);
-Route::delete('/restaurant/{id}', [RestaurantController::class, 'destroy']);
-Route::get('/restaurant/search/{name}', [RestaurantController::class, 'search']);
 
 // protected routes
 Route::group(['middleware'=>['auth:sanctum']], function () {
@@ -50,6 +33,23 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
     
     Route::put('/customer', [CustomerController::class, 'update']);
     Route::put('/deliveryman', [DeliverymanController::class, 'update']);
+
+    // menu routes
+    Route::get('/menu', [MenuController::class, 'index']);
+    Route::post('/menu', [MenuController::class, 'store']);
+    Route::put('/menu/{id}', [MenuController::class, 'update']);
+    Route::delete('/menu/{id}', [MenuController::class, 'destroy']);
+    Route::get('/menu/search/{name}', [MenuController::class, 'search']);
+
+    // restaurant routes
+    Route::get('/restaurant', [RestaurantController::class, 'index']);
+    Route::get('/restaurant/{id}', [RestaurantController::class, 'show']);
+    Route::post('/restaurant', [RestaurantController::class, 'store']);
+    Route::put('/restaurant/{id}', [RestaurantController::class, 'update']);
+    Route::delete('/restaurant/{id}', [RestaurantController::class, 'destroy']);
+    Route::get('/restaurant/search/{name}', [RestaurantController::class, 'search']);
+
+    Route::get('/user', [UserController::class, 'index']);
 });
 
 Route::post('/sanctum/token', [SanctumTokenController::class, 'getToken']);
