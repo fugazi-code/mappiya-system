@@ -34,6 +34,8 @@ class CustomerController extends Controller
         $customer->update($request->all());
 
         $user->update($request->all());
-        return User::where('id', $user_id['id'])->with('info')->get();
+        return response ([
+            'message' => 'Success'
+        ], 201);
     }
 }

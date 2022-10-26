@@ -24,7 +24,7 @@ class Restaurant extends Model
     protected $attributes = [
       'is_available' => 0,
       'is_blocked' => 0,
-  ];
+    ];
 
   public function menus()
   {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Menu;
 use App\Http\Livewire\Customer;
 use App\Http\Livewire\DeliveryPeople;
 use App\Http\Livewire\Promocodes;
@@ -14,6 +15,8 @@ Route::middleware(['auth:web'])
      ->group(function () {
          Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
          Route::get('/restaurant', Restaurant::class)->name('restaurant');
+         Route::get('/restaurant/{id}/menu', Menu::class)->name('menu');
+        //  Route::get('/menu', Menu::class)->name('menu');
         //  Route::post('/restaurant', Restaurant::class)->name('restaurant');
          Route::get('/customer', Customer::class)->name('customer');
          Route::get('/delivery-people', DeliveryPeople::class)->name('delivery-people');

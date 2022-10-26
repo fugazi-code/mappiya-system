@@ -31,6 +31,7 @@ class MenuController extends Controller
             'price' => 'required|numeric',
             'description' => 'required|string',
             'category' => 'required|string',
+            'image' => 'string',
         ]);
 
         return Menu::create($request->all());
