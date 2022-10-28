@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('description');
             $table->string('category');
             $table->string('image')->nullable();
+            $table->integer('stock')->default(0);
+            $table->integer('is_available')->default(0);
             $table->timestamps(); 
         });
     }

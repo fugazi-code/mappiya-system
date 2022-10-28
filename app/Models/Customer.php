@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
+use App\Models\Order;
 
 class Customer extends Model
 {
@@ -28,5 +29,10 @@ class Customer extends Model
     public function user()
     {
         return $this->morphOne(User::class, 'info');
+    }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class); 
     }
 }
