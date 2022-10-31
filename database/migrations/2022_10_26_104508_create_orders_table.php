@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('order_no');
+            $table->string('order_no')->unique();
             $table->string('dispatch_lat');
             $table->string('dispatch_long');
             $table->foreignId('deliveryman_id')->nullable()
@@ -29,6 +29,7 @@ return new class extends Migration
             ->onDelete('cascade');
             $table->string('status');
             $table->string('payment_no')->nullable();
+            $table->decimal('distance_km')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
@@ -13,6 +14,30 @@ class OrderController extends Controller
     public $quantity;
     public $items;
     public $item;
+
+    public function generateZeroes($str) {
+        $len = Str::length($str);
+        $maxLen = 6 - $len;
+        $zeroes = '';
+        for($i=0; $i<$maxLen; $i++) {
+            $zeroes= '0'.$zeroes;
+        }
+        return $zeroes;
+        // dump($zeroes);
+    }
+
+    // output: TN000004
+    public function generateOrderNo() {
+        $order = Order::latest()->first();
+        if(!$order) {
+            $newOrderNo = 1;
+        } else {
+            $newOrderNo = $order['id'] + 1;
+        }
+        
+        $zeroes = $this->generateZeroes($newOrderNo);
+        return 'TN'.$zeroes.$newOrderNo;
+    }
 
     /**
      * Display a listing of the resource.
@@ -33,14 +58,14 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'order_no' => 'required|string',
+            // 'order_no' => 'required|string',
             'dispatch_lat' => 'required|string',
             'dispatch_long' => 'required|string',
             'customer_id' => 'required|numeric',
             'items.*.menu_id' => 'required|numeric',
             'items.*.quantity' => 'required|numeric',
         ]);
-
+        $request['order_no'] = $this->generateOrderNo();
         $this->items = $request['items'];
         $order = Order::create($request->all());
 

@@ -21,12 +21,14 @@ class Order extends Model
         "customer_id",
         "status",
         "payment_no",
+        "distance_km",
     ];
 
     protected $attributes = [
         'deliveryman_id' => null,
         'payment_no' => null,
         'status' => 'pending',
+        'distance_km' => null,
     ];
 
     public function customer() 
