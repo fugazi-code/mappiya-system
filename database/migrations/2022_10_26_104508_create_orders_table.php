@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('order_no');
             $table->string('dispatch_lat');
             $table->string('dispatch_long');
-            $table->string('deliveryman_lat')->nullable();
-            $table->string('deliveryman_long')->nullable();
             $table->foreignId('deliveryman_id')->nullable()
             ->constrained()
             ->onUpdate('cascade')

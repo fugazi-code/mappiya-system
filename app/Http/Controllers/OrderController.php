@@ -86,8 +86,6 @@ class OrderController extends Controller
     public function orderPickup(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'deliveryman_lat' => 'required|string',
-            'deliveryman_long' => 'required|string',
             'deliveryman_id' => 'required|numeric',
         ]);
         $validatedData['status'] = 'pickup';

@@ -22,6 +22,9 @@ return new class extends Migration
             $table->text('profile_image');
             $table->integer('is_blocked')->default(0);
             $table->integer('is_active')->default(0);
+            $table->integer('is_online')->default(0);
+            $table->string('longitude')->nullable();
+            $table->string('latitude')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
