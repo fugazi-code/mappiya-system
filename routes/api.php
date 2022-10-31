@@ -10,6 +10,7 @@ use App\Http\Controllers\DeliverymanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ItemController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +61,10 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
     Route::put('/order/pickup/{id}', [OrderController::class, 'orderPickup']);
     Route::put('/order/delivery/{id}', [OrderController::class, 'orderDelivery']);
     Route::put('/order/completed/{id}', [OrderController::class, 'orderCompleted']);
+
+    // item routes
+    Route::get('/item', [ItemController::class, 'index']);
+    Route::get('/item/{id}', [ItemController::class, 'show']);
 
     Route::get('/user', [UserController::class, 'index']);
 });

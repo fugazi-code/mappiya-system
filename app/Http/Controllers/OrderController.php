@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Item;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    public $menu_id;
+    public $order_id;
+    public $quantity;
+    public $items;
+    public $item;
+
     /**
      * Display a listing of the resource.
      *
@@ -29,13 +36,23 @@ class OrderController extends Controller
             'order_no' => 'required|string',
             'dispatch_lat' => 'required|string',
             'dispatch_long' => 'required|string',
-            // 'deliveryman_lat' => 'required|string',
-            // 'deliveryman_long' => 'required|string',
-            // 'deliveryman_id' => 'required|numeric',
             'customer_id' => 'required|numeric',
+            'items.*.menu_id' => 'required|numeric',
+            'items.*.quantity' => 'required|numeric',
         ]);
 
-        return Order::create($request->all());
+        $this->items = $request['items'];
+        $order = Order::create($request->all());
+
+        foreach($this->items as $item) {
+            Item::create([
+                'order_id' => $order['id'],
+                'menu_id' => $item['menu_id'],
+                'quantity' => $item['quantity']
+            ]);
+          }
+
+        return $order;
     }
 
     /**
@@ -46,7 +63,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        return Order::find($id)->with(['customer', 'deliveryman'])->get();
+        return Order::where('id', $id)->with(['customer', 'deliveryman', 'items'])->get();
     }
 
     /**
@@ -105,6 +122,14 @@ class OrderController extends Controller
 
         $order = Order::find($id);
         $order->update($validatedData);
+        return $order;
+    }
+
+    public function orderCancellled(Request $request, $id)
+    {
+        $params['status'] = 'canceled';
+        $order = Order::find($id);
+        $order->update($params);
         return $order;
     }
 
