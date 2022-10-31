@@ -14,6 +14,7 @@ class MenuController extends Controller
      */
     public function index()
     {
+        dump('henlo');
         return Menu::all();
     }
 
