@@ -21,11 +21,17 @@ class Deliveryman extends Model
         "profile_image",
         "is_blocked",
         "is_active",
+        "longitude",
+        "latitude",
+        "is_online",
     ];
 
     protected $attributes = [
         'is_blocked' => 0,
         'is_active' => 1,
+        "is_online" => 0,
+        "longitude" => null,
+        "latitude" => null,
     ];
 
     public function user()

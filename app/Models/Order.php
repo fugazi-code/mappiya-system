@@ -17,20 +17,18 @@ class Order extends Model
         "order_no",
         "dispatch_lat",
         "dispatch_long",
-        "deliveryman_lat",
-        "deliveryman_long",
         "deliveryman_id",
         "customer_id",
         "status",
         "payment_no",
+        "distance_km",
     ];
 
     protected $attributes = [
-        'deliveryman_lat' => null,
-        'deliveryman_long' => null,
         'deliveryman_id' => null,
         'payment_no' => null,
         'status' => 'pending',
+        'distance_km' => null,
     ];
 
     public function customer() 
