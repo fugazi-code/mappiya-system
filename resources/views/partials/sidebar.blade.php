@@ -10,6 +10,14 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{ route('map') }}">
+                <i class="menu-icon">
+                    <i class="fas fa-map"></i>
+                </i>
+                <span class="menu-title">Map</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{ route('restaurant') }}">
                 <i class="menu-icon">
                     <i class="fas fa-business-time"></i>

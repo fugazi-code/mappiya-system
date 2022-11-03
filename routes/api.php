@@ -13,6 +13,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ItemController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Events\RiderMove;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,9 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
     Route::get('/item/{id}', [ItemController::class, 'show']);
 
     Route::get('/user', [UserController::class, 'index']);
+    Route::get('/move', function() {
+        event(new RiderMove(16.40159478820968, 120.59604921627938));
+    });
 });
 
 Route::post('/sanctum/token', [SanctumTokenController::class, 'getToken']);
