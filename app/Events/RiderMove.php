@@ -13,20 +13,24 @@ use Illuminate\Queue\SerializesModels;
 class RiderMove implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+    public int $id;
     public float $latitude;
     public float $longitude;
+    public string $action;
     // public array $riderPos;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($longitude, $latitude)
+    public function __construct($id, $latitude, $longitude, $action)
     // public function __construct($riderPos)
     {
-        // dump($riderPos);
-        $this->longitude = $longitude;
+        // dump($id);
+        $this->id = $id;
         $this->latitude = $latitude;
+        $this->longitude = $longitude;
+        $this->action = $action;
         // $this->riderPos = $riderPos;
     }
 

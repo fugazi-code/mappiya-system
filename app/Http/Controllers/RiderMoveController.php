@@ -11,13 +11,20 @@ class RiderMoveController extends Controller
     
     public function move(Request $request, Response $response)
     {
-        $riderPos = array();
-        $riderPos['lat'] = '16.40159478820968';
-        $riderPos['lng'] = '120.59604921627938';
-        $riderPos['riderId'] = 1;
-        $riderPos['riderName'] = 'John Jonas';
+        $request->validate([
+            'id' => 'required|integer',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
 
-        // $response = event(new RiderMove($riderPos));
-        // dump($response);
+        $response = event(new RiderMove($request['id'], $request['latitude'], $request['longitude'], 'move'));
+    }
+
+    public function inactive(Request $request, Response $response)
+    {
+        $request->validate([
+            'id' => 'required|integer',
+        ]);
+        $response = event(new RiderMove($request['id'], 0, 0, 'inactive'));
     }
 }

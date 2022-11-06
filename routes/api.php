@@ -69,10 +69,13 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
     Route::get('/item/{id}', [ItemController::class, 'show']);
 
     Route::get('/user', [UserController::class, 'index']);
-    Route::get('/move', function() {
-        // event(new RiderMove([120.59604921627938]));
-        event(new RiderMove(16.40159478820968, 120.59604921627938));
-    });
+    // Route::get('/move', function() {
+    //     // event(new RiderMove([120.59604921627938]));
+    //     event(new RiderMove(16.40159478820968, 120.59604921627938));
+    // });
+    Route::get('/move', [RiderMoveController::class, 'move']);
+    Route::get('/inactive', [RiderMoveController::class, 'inactive']);
+
 });
 
 Route::post('/sanctum/token', [SanctumTokenController::class, 'getToken']);
