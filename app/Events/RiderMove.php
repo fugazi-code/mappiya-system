@@ -15,15 +15,19 @@ class RiderMove implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public float $latitude;
     public float $longitude;
+    // public array $riderPos;
     /**
      * Create a new event instance.
      *
      * @return void
      */
     public function __construct($longitude, $latitude)
+    // public function __construct($riderPos)
     {
+        // dump($riderPos);
         $this->longitude = $longitude;
         $this->latitude = $latitude;
+        // $this->riderPos = $riderPos;
     }
 
     /**

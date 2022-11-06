@@ -83,12 +83,13 @@
 
     <script>
         console.log('app blade')
-        // if(Echo) {
-        //     Echo.channel('mappiya')
-        //     .listen('RiderMove', (e) => {
-        //         updatePosition(e.lat, e.lng);
-        //     });
-        // }
+        if(Echo) {
+            Echo.channel('mappiya')
+            .listen('RiderMove', (e) => {
+                // updatePosition(e.lat, e.lng);
+                console.log('echo app')
+            });
+        }
     </script>
     {{ $slot }}
 </body>
