@@ -75,22 +75,10 @@
         });
     </script>
     <!-- endinject -->
-    <script src="{{ asset('js/app.js') }}"></script>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvSLf6a8qnt9snA-bdZC48Hf9z13PKEjc&callback=initMap&v=weekly"
       defer
     ></script>
-
-    <script>
-        console.log('app blade')
-        if(Echo) {
-            Echo.channel('mappiya')
-            .listen('RiderMove', (e) => {
-                // updatePosition(e.lat, e.lng);
-                console.log('echo app')
-            });
-        }
-    </script>
     {{ $slot }}
 </body>
 </html>

@@ -1,12 +1,10 @@
 let map;
 let riderPos = [
-    {id: 1, riderName: "Berto SanJose",lat: 16.40159478820968, lng: 120.59604921627938},
-    {id: 2, riderName: "John Jones",lat: 16.40159478820968, lng: 120.55604921627938},
+    // {id: 1, name: "Berto SanJose",lat: 16.40159478820968, lng: 120.59604921627938},
+    // {id: 2, name: "John Jones",lat: 16.40159478820968, lng: 120.55604921627938},
 ]
 let marker, i;
-
 let markers = [];
-
 
 const baguio = { lat: 16.40159478820968, lng: 120.59604921627938 };
 function initMap() {
@@ -24,7 +22,7 @@ function initMap() {
 
     //     // google.maps.event.addListener(marker, 'click', (function(marker, i) {
     //     //     return function() {
-    //     //         let content = `<p>name: ${riderPos[i].riderName}</p>` + 
+    //     //         let content = `<p>name: ${riderPos[i].name}</p>` + 
     //     //             `<p>pos: (${riderPos[i].lat}, ${riderPos[i].lng})</p>`
     //     //         ;
     //     //         infoWindow.setContent(content);
@@ -33,44 +31,45 @@ function initMap() {
     //     // })(marker, i));
     // }
 
-    addMarker(riderPos)
-    setMapOnAll()
+    // addMarker(riderPos)
+    setMapOnAll(riderPos)
 }
 
 function addMarker(props) {
     let infoWindow = new google.maps.InfoWindow();
-    for (let i = 0; i < props.length; i++) {
-        const marker = new google.maps.Marker({
-            position: { lat: props[i].lat, lng: props[i].lng },
-            map,
-        });
-         google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-                let content = `<p>name: ${riderPos[i].riderName}</p>` + 
-                    `<p>pos: (${riderPos[i].lat}, ${riderPos[i].lng})</p>`
-                ;
-                infoWindow.setContent(content);
-                infoWindow.open(map, marker);
-            }
-        })(marker, i));
+
+    const marker = new google.maps.Marker({
+        position: { lat: props.lat, lng: props.lng },
+        map,
+    });
+        google.maps.event.addListener(marker, 'click', (function(marker) {
+        return function() {
+            let content = `<p>name: ${props.name}</p>` + 
+                `<p>pos: (${props.lat}, ${props.lng})</p>`
+            ;
+            infoWindow.setContent(content);
+            infoWindow.open(map, marker);
+        }
+    })(marker));
+    const id = riderPos.findIndex(index=>props.id === index.id)
+    if(id === -1) {
+        riderPos.push(props)
         markers.push(marker);
     }
 }
 
-function setMapOnAll() {
-    for (let i = 0; i < markers.length; i++) {
-        markers[i].setMap(map);
+function setMapOnAll(props) {
+    for (let i = 0; i < props.length; i++) {
+        addMarker(props[i])
+        // markers[i].setMap(map);
     }
 }
 
-// function showMarkers() {
-//     setMapOnAll(map);
-// }
-
 function deleteMarker(riderId) {
-    console.log('riderId', riderId)
     const id = riderPos.findIndex(index=>riderId === index.id)
     markers[id].setMap(null);
+    riderPos.splice(id, 1)
+    markers.splice(id, 1)
 }
 
 function updatePosition(riderId, lat, lng) {
@@ -79,7 +78,7 @@ function updatePosition(riderId, lat, lng) {
 }
 
 // function updatePosition(riderId, lat, lng) {
-//     // const marker = [{riderId: 2, riderName: "Berto SanJose",lat: 16.40159478820968, lng: 120.59604921627938},]
+//     // const marker = [{riderId: 2, name: "Berto SanJose",lat: 16.40159478820968, lng: 120.59604921627938},]
 //     console.log('riderPos', riderPos)
 //     for (i = 0; i < riderPos.length; i++) {
 //         // marker = new google.maps.Marker({
@@ -89,7 +88,7 @@ function updatePosition(riderId, lat, lng) {
 
 //         // google.maps.event.addListener(marker, 'click', (function(marker, i) {
 //         //     return function() {
-//         //         let content = `<p>name: ${riderPos[i].riderName}</p>` + 
+//         //         let content = `<p>name: ${riderPos[i].name}</p>` + 
 //         //             `<p>pos: (${riderPos[i].lat}, ${riderPos[i].lng})</p>`
 //         //         ;
 //         //         infoWindow.setContent(content);
@@ -99,6 +98,19 @@ function updatePosition(riderId, lat, lng) {
 //         marker.setPosition({ lat: riderPos[i].lat, lng: riderPos[i].lng })
 //     }
 // }
+
+function distanceMeters(lat1, lon1, lat2, lon2) { 
+    let x = deg2rad( lon1 - lon2 ) * Math.cos( deg2rad( (lat1+lat2) /2 ) );
+    let y = deg2rad( lat1 - lat2 ); 
+    $dist = 6371000.0 * Math.sqrt( x*x + y*y );
+  
+    return $dist;
+}
+
+function deg2rad(degrees) {
+    const pi = Math.PI;
+    return degrees * (pi/180);
+}
 
 
 Echo.channel('mappiya')
@@ -110,6 +122,9 @@ Echo.channel('mappiya')
         case "move":
             updatePosition(e.id, e.latitude, e.longitude);
             break;
+        case "active":
+            addMarker({id: e.id, lat: e.latitude, lng: e.longitude, name: e.name});
+            break
         default:
             console.log('error', e)
             break;

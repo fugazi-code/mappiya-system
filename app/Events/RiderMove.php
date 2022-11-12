@@ -17,13 +17,15 @@ class RiderMove implements ShouldBroadcast
     public float $latitude;
     public float $longitude;
     public string $action;
+    public string $name;
     // public array $riderPos;
+    public $params;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($id, $latitude, $longitude, $action)
+    public function __construct($id, $latitude, $longitude, $action, $name)
     // public function __construct($riderPos)
     {
         // dump($id);
@@ -31,7 +33,10 @@ class RiderMove implements ShouldBroadcast
         $this->latitude = $latitude;
         $this->longitude = $longitude;
         $this->action = $action;
-        // $this->riderPos = $riderPos;
+        $this->name = $name;
+        // $this->params[0] = $id;
+        // $params['latitude']->$latitude;
+        // $this->riderPos = $params;
     }
 
     /**

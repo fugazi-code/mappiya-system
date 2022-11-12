@@ -73,8 +73,9 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
     //     // event(new RiderMove([120.59604921627938]));
     //     event(new RiderMove(16.40159478820968, 120.59604921627938));
     // });
-    Route::get('/move', [RiderMoveController::class, 'move']);
-    Route::get('/inactive', [RiderMoveController::class, 'inactive']);
+    Route::post('/move', [RiderMoveController::class, 'move']);
+    Route::post('/inactive', [RiderMoveController::class, 'inactive']);
+    Route::post('/active', [RiderMoveController::class, 'active']);
 
 });
 
