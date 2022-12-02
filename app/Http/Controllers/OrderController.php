@@ -8,6 +8,7 @@ use App\Models\Deliveryman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Events\OrderStatusChange;
 
 class OrderController extends Controller
 {
@@ -118,6 +119,7 @@ class OrderController extends Controller
         $latitude = $order['dispatch_lat'];
         $longitude = $order['dispatch_long'];
 
+        // * get rider that is online and within 50km rad, sort by distance
         $deliveryman = DB::table('deliverymen')->where('is_online', 1)->select(DB::raw("id, ( 3959 * acos( cos( radians('$latitude') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('$longitude') ) + sin( radians('$latitude') ) * sin( radians( latitude ) ) ) ) AS distance"))->havingRaw('distance < 50')->orderBy('distance')
             ->get();
         // $deliveryman = Deliveryman::select(DB::raw("id, ( 3959 * acos( cos( radians('$latitude') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('$longitude') ) + sin( radians('$latitude') ) * sin( radians( latitude ) ) ) ) AS distance"))->havingRaw('distance < 50')->orderBy('distance')
@@ -136,6 +138,9 @@ class OrderController extends Controller
                 'deliveryman_id' => $deliveryman[0]->id
             ],
         );
+
+        $response = event(new OrderStatusChange($id, 'pickup'));
+        
         return $order;
     }
 
