@@ -138,8 +138,7 @@ class OrderController extends Controller
                 'deliveryman_id' => $deliveryman[0]->id
             ],
         );
-
-        $response = event(new OrderStatusChange($id, 'pickup'));
+        event(new OrderStatusChange($id, 'pickup'));
         
         return $order;
     }
@@ -153,6 +152,9 @@ class OrderController extends Controller
 
         $order = Order::find($id);
         $order->update($validatedData);
+
+        event(new OrderStatusChange($id, 'delivery'));
+
         return $order;
     }
 
@@ -160,7 +162,7 @@ class OrderController extends Controller
      * Update order to completed status
      * TODO: Create payment
      */
-    public function orderCompleted(Request $request, $id)
+    public function orderComplete(Request $request, $id)
     {
         $validatedData = $request->validate([
             'payment_no' => 'required|string',
@@ -169,14 +171,20 @@ class OrderController extends Controller
 
         $order = Order::find($id);
         $order->update($validatedData);
+
+        event(new OrderStatusChange($id, 'completed'));
+
         return $order;
     }
 
-    public function orderCancellled(Request $request, $id)
+    public function orderCancel(Request $request, $id)
     {
         $params['status'] = 'canceled';
         $order = Order::find($id);
         $order->update($params);
+
+        event(new OrderStatusChange($id, 'canceled'));
+
         return $order;
     }
 
