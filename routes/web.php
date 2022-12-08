@@ -7,6 +7,7 @@ use App\Http\Livewire\Promocodes;
 use App\Http\Livewire\Restaurant;
 use App\Http\Livewire\Settings;
 use App\Http\Livewire\Users;
+use App\Http\Livewire\Map;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
@@ -23,5 +24,6 @@ Route::middleware(['auth:web'])
          Route::get('/promocodes', Promocodes::class)->name('promocodes');
          Route::get('/settings', Settings::class)->name('settings');
          Route::get('/users', Users::class)->name('users');
+         Route::get('/map', Map::class)->name('map');
      });
 

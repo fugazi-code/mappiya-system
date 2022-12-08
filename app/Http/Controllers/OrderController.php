@@ -110,14 +110,15 @@ class OrderController extends Controller
     */
     public function orderPickup(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'deliveryman_id' => 'required|numeric',
-        ]);
-        $validatedData['status'] = 'pickup';
+        dump($riderPos);
+        // $validatedData = $request->validate([
+        //     'deliveryman_id' => 'required|numeric',
+        // ]);
+        // $validatedData['status'] = 'pickup';
 
-        $order = Order::find($id);
-        $order->update($validatedData);
-        return $order;
+        // $order = Order::find($id);
+        // $order->update($validatedData);
+        // return $order;
     }
 
     /**
