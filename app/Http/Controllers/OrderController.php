@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Item;
+use App\Models\Deliveryman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Events\OrderStatusChange;
 
 class OrderController extends Controller
 {
@@ -15,28 +18,30 @@ class OrderController extends Controller
     public $items;
     public $item;
 
-    public function generateZeroes($str) {
+    public function generateZeroes($str)
+    {
         $len = Str::length($str);
         $maxLen = 6 - $len;
         $zeroes = '';
-        for($i=0; $i<$maxLen; $i++) {
-            $zeroes= '0'.$zeroes;
+        for ($i = 0; $i < $maxLen; $i++) {
+            $zeroes = '0' . $zeroes;
         }
         return $zeroes;
         // dump($zeroes);
     }
 
     // output: TN000004
-    public function generateOrderNo() {
+    public function generateOrderNo()
+    {
         $order = Order::latest()->first();
-        if(!$order) {
+        if (!$order) {
             $newOrderNo = 1;
         } else {
             $newOrderNo = $order['id'] + 1;
         }
-        
+
         $zeroes = $this->generateZeroes($newOrderNo);
-        return 'TN'.$zeroes.$newOrderNo;
+        return 'TN' . $zeroes . $newOrderNo;
     }
 
     /**
@@ -69,13 +74,13 @@ class OrderController extends Controller
         $this->items = $request['items'];
         $order = Order::create($request->all());
 
-        foreach($this->items as $item) {
+        foreach ($this->items as $item) {
             Item::create([
                 'order_id' => $order['id'],
                 'menu_id' => $item['menu_id'],
                 'quantity' => $item['quantity']
             ]);
-          }
+        }
 
         return $order;
     }
@@ -107,37 +112,57 @@ class OrderController extends Controller
 
     /**
      * Update order to pickup status
-    */
+     */
     public function orderPickup(Request $request, $id)
     {
-        dump($riderPos);
-        // $validatedData = $request->validate([
-        //     'deliveryman_id' => 'required|numeric',
-        // ]);
-        // $validatedData['status'] = 'pickup';
+        $order = Order::find($id);
+        $latitude = $order['dispatch_lat'];
+        $longitude = $order['dispatch_long'];
 
-        // $order = Order::find($id);
-        // $order->update($validatedData);
-        // return $order;
+        // * get rider that is online and within 50km rad, sort by distance
+        $deliveryman = DB::table('deliverymen')->where('is_online', 1)->select(DB::raw("id, ( 3959 * acos( cos( radians('$latitude') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('$longitude') ) + sin( radians('$latitude') ) * sin( radians( latitude ) ) ) ) AS distance"))->havingRaw('distance < 50')->orderBy('distance')
+            ->get();
+        // $deliveryman = Deliveryman::select(DB::raw("id, ( 3959 * acos( cos( radians('$latitude') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('$longitude') ) + sin( radians('$latitude') ) * sin( radians( latitude ) ) ) ) AS distance"))->havingRaw('distance < 50')->orderBy('distance')
+        //     ->get();
+
+        if(!$deliveryman) {
+            return response ([
+                'message' => 'No deliveryman online'
+            ], 401);
+        }
+
+        $order = Order::find($id);
+        $order->update(
+            [
+                'status' => 'pickup',
+                'deliveryman_id' => $deliveryman[0]->id
+            ],
+        );
+        event(new OrderStatusChange($id, 'pickup'));
+        
+        return $order;
     }
 
     /**
      * Update order to delivery status
-    */
+     */
     public function orderDelivery(Request $request, $id)
     {
         $validatedData['status'] = 'delivery';
 
         $order = Order::find($id);
         $order->update($validatedData);
+
+        event(new OrderStatusChange($id, 'delivery'));
+
         return $order;
     }
 
     /**
      * Update order to completed status
      * TODO: Create payment
-    */
-    public function orderCompleted(Request $request, $id)
+     */
+    public function orderComplete(Request $request, $id)
     {
         $validatedData = $request->validate([
             'payment_no' => 'required|string',
@@ -146,14 +171,20 @@ class OrderController extends Controller
 
         $order = Order::find($id);
         $order->update($validatedData);
+
+        event(new OrderStatusChange($id, 'completed'));
+
         return $order;
     }
 
-    public function orderCancellled(Request $request, $id)
+    public function orderCancel(Request $request, $id)
     {
         $params['status'] = 'canceled';
         $order = Order::find($id);
         $order->update($params);
+
+        event(new OrderStatusChange($id, 'canceled'));
+
         return $order;
     }
 

@@ -55,8 +55,10 @@ class RiderMoveController extends Controller
         $deliveryman = Deliveryman::where('id', $riderId);
         $deliveryman->update([
             'is_online' => 1,
+            'latitude' => $request['latitude'],
+            'longitude' => $request['longitude'],
         ]);
-
+        
         $deliveryman_name = User::where('id', $request['id'])->first();
         $response = event(new RiderMove($request['id'], $request['latitude'], $request['longitude'], 'active', $deliveryman_name['name']));
     }

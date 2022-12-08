@@ -62,17 +62,15 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
     Route::delete('/order/{id}', [OrderController::class, 'destroy']);
     Route::put('/order/pickup/{id}', [OrderController::class, 'orderPickup']);
     Route::put('/order/delivery/{id}', [OrderController::class, 'orderDelivery']);
-    Route::put('/order/completed/{id}', [OrderController::class, 'orderCompleted']);
+    Route::put('/order/complete/{id}', [OrderController::class, 'orderComplete']);
+    Route::put('/order/cancel/{id}', [OrderController::class, 'orderCancel']);
 
     // item routes
     Route::get('/item', [ItemController::class, 'index']);
     Route::get('/item/{id}', [ItemController::class, 'show']);
 
     Route::get('/user', [UserController::class, 'index']);
-    // Route::get('/move', function() {
-    //     // event(new RiderMove([120.59604921627938]));
-    //     event(new RiderMove(16.40159478820968, 120.59604921627938));
-    // });
+
     Route::post('/move', [RiderMoveController::class, 'move']);
     Route::post('/inactive', [RiderMoveController::class, 'inactive']);
     Route::post('/active', [RiderMoveController::class, 'active']);
