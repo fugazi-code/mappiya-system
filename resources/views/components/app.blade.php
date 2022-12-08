@@ -75,10 +75,7 @@
         });
     </script>
     <!-- endinject -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvSLf6a8qnt9snA-bdZC48Hf9z13PKEjc&callback=initMap&v=weekly"
-      defer
-    ></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{config('google-map.api-key')}}&callback=initMap&v=weekly" defer></script>
     {{ $slot }}
 </body>
 </html>
