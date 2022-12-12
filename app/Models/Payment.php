@@ -12,8 +12,11 @@ class Payment extends Model
     // status: pending, paid; type: cash, gcash
     public $fillable = [
         "payment_no",
-        "amount",
         "status",
         "type",
+        "distanceKm",
+        "baseFare",
+        "milageFare",
+        "vat",
     ];
 }

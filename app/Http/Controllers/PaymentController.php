@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
 use Illuminate\Http\Request;
-use App\Models\Menu;
 
-class MenuController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        dump('henlo');
-        return Menu::all();
+        return Payment::all();
     }
 
     /**
@@ -27,55 +26,50 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'restaurant_id' => 'required|numeric',
-            'name' => 'required|string',
-            'price' => 'required|numeric',
-            'description' => 'required|string',
-            'category' => 'required|string',
-            'image' => 'string',
+            'payment_no' => 'required|string',
+            'status' => 'required|string',
+            'type' => 'required|string',
+            'distanceKm' => 'required|string',
+            'baseFare' => 'required|string',
+            'milageFare' => 'required|string',
+            'vat' => 'required|string',
         ]);
-
-        return Menu::create($request->all());
+        return Payment::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return Menu::find($id);
+        return Payment::find($id);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $menu = Menu::find($id);
-        $menu->update($request->all());
-        return $menu;
+        $payment = Payment::find($id);
+        $payment->update($request->all());
+        return $payment;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        return Menu::destroy($id);
-    }
-
-    public function search($name)
-    {
-        return Menu::where('name', 'like', '%'.$name.'%')->get();
+        return Payment::destroy($id);
     }
 }

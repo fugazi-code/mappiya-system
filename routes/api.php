@@ -12,6 +12,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RiderMoveController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Events\RiderMove;
@@ -74,6 +75,13 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
     Route::post('/move', [RiderMoveController::class, 'move']);
     Route::post('/inactive', [RiderMoveController::class, 'inactive']);
     Route::post('/active', [RiderMoveController::class, 'active']);
+
+
+    Route::post('/payment', [PaymentController::class, 'store']);
+    Route::get('/payment', [PaymentController::class, 'index']);
+    Route::get('/payment/{id}', [PaymentController::class, 'show']);
+    Route::put('/payment/{id}', [PaymentController::class, 'update']);
+    Route::delete('/payment/{id}', [PaymentController::class, 'destroy']);
 
 });
 
