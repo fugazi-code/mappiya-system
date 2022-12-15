@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Item;
 use App\Models\Deliveryman;
+use App\Models\Payment;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -17,6 +19,12 @@ class OrderController extends Controller
     public $quantity;
     public $items;
     public $item;
+
+    public $vatPercent = 15;
+    public $baseFare = 50;
+    public $milageBase = 10;
+
+    public $itemTotal = 0;
 
     public function generateZeroes($str)
     {
@@ -69,6 +77,10 @@ class OrderController extends Controller
             'customer_id' => 'required|numeric',
             'items.*.menu_id' => 'required|numeric',
             'items.*.quantity' => 'required|numeric',
+
+            'payment_no' => 'required|string',
+            'type' => 'required|string',
+            'distanceKm' => 'required|string',
         ]);
         $request['order_no'] = $this->generateOrderNo();
         $this->items = $request['items'];
@@ -81,6 +93,20 @@ class OrderController extends Controller
                 'quantity' => $item['quantity']
             ]);
         }
+
+        // create payment
+        // milageFare = distanceKm * milageBase
+        // vat = (baseFare + milageFare) * vatPercent / 100     
+        $milageFare = $request['distanceKm'] * $this->milageBase;
+        Payment::create([
+            'payment_no'=>$request['payment_no'],
+            'status'=> 'pending',
+            'type'=>$request['type'],
+            'distanceKm'=>$request['distanceKm'],
+            'baseFare' => $this->baseFare,
+            'milageFare'=> $milageFare,
+            'vat' => ($this->baseFare + $milageFare) * $this->vatPercent / 100
+        ]);
 
         return $order;
     }
@@ -164,15 +190,15 @@ class OrderController extends Controller
      */
     public function orderComplete(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'payment_no' => 'required|string',
-        ]);
         $validatedData['status'] = 'completed';
 
         $order = Order::find($id);
-        $order->update($validatedData);
+        $order->update(['status'=> 'completed']);
 
         event(new OrderStatusChange($id, 'completed'));
+
+        $payment = Payment::where('payment_no', $order['payment_no'])->first();
+        $payment->update(['status'=> 'paid']);
 
         return $order;
     }
@@ -184,6 +210,9 @@ class OrderController extends Controller
         $order->update($params);
 
         event(new OrderStatusChange($id, 'canceled'));
+
+        $payment = Payment::where('payment_no', $order['payment_no'])->first();
+        $payment->update(['status'=> 'canceled']);
 
         return $order;
     }
@@ -197,5 +226,39 @@ class OrderController extends Controller
     public function destroy($id)
     {
         return Order::destroy($id);
+    }
+
+    public function orderComputation(Request $request)
+    {
+        $request->validate([
+            'dispatch_lat' => 'required|string',
+            'dispatch_long' => 'required|string',
+            'customer_id' => 'required|numeric',
+            'items.*.menu_id' => 'required|numeric',
+            'items.*.quantity' => 'required|numeric',
+
+            'payment_no' => 'required|string',
+            'type' => 'required|string',
+            'distanceKm' => 'required|string',
+        ]);
+        
+        // get total of order items
+        $this->items = $request['items'];
+        foreach ($this->items as $item) {
+            $menu = Menu::where('id', $item['menu_id'])->first();
+            $this->itemTotal = $this->itemTotal + ( $menu['price'] * $item['quantity']);
+        }
+
+        $milageFare = $request['distanceKm'] * $this->milageBase;
+        $vat = ($this->baseFare + $milageFare) * $this->vatPercent / 100;
+        $total = $this->itemTotal + $milageFare + $vat + $this->baseFare;
+
+        return [
+            'milageFare'=> $milageFare,
+            'vat'=> $vat,
+            'itemTotal' => $this->itemTotal,
+            'baseFare'=> $this->baseFare,
+            'total'=> $total
+        ];
     }
 }
