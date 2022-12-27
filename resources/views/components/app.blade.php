@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,31 +26,42 @@
             margin: 0;
             padding: 0;
         }
+
         .navbar .navbar-brand-wrapper .navbar-brand img {
             height: 65px !important;
         }
+
         .navbar .navbar-brand-wrapper .brand-logo-mini img {
             height: auto !important;
         }
+
         .navbar .navbar-brand-wrapper {
             height: 69px !important;
         }
+
         .navbar .navbar-menu-wrapper {
             height: 69px !important;
         }
+
         #map {
             height: 65vh;
         }
+
         #redish {
             color: red;
         }
     </style>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @livewireStyles
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
 </head>
+
 <body>
-    
+
+    {{ $slot }}
+
     <script src="{{ asset('vandor/fontawesome/js/all.min.js') }}"></script>
     <!-- plugins:js -->
     <script src="/theme/vendors/js/vendor.bundle.base.js"></script>
@@ -68,14 +80,15 @@
     @livewireScripts
     {{-- @stack('scripts') --}}
     <script>
-        window.addEventListener('closeModal', event =>{
+        window.addEventListener('closeModal', event => {
             $('#create-cancel-btn').click();
             $('#update-cancel-btn').click();
             $('#delete-cancel-btn').click();
         });
     </script>
     <!-- endinject -->
-    <script src="https://maps.googleapis.com/maps/api/js?key={{config('google-map.api-key')}}&callback=initMap&v=weekly" defer></script>
-    {{ $slot }}
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('google-map.api-key') }}&callback=initMap&v=weekly"
+        defer></script>
 </body>
+
 </html>
