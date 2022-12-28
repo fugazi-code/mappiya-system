@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Restaurant;
+use Illuminate\Http\Request;
 
 class RestaurantController extends Controller
 {
@@ -58,6 +58,7 @@ class RestaurantController extends Controller
     {
         $restaurant = Restaurant::find($id);
         $restaurant->update($request->all());
+
         return $restaurant;
     }
 
@@ -74,6 +75,6 @@ class RestaurantController extends Controller
 
     public function search($name)
     {
-        return Restaurant::where('name', 'like', '%'.$name.'%')->get();
+        return Restaurant::where('name', 'like', '%' . $name . '%')->get();
     }
 }

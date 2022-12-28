@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RiderMove;
+use App\Models\Deliveryman;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Events\RiderMove;
-use App\Models\User;
-use App\Models\Deliveryman;
 
 class RiderMoveController extends Controller
 {
@@ -58,7 +58,7 @@ class RiderMoveController extends Controller
             'latitude' => $request['latitude'],
             'longitude' => $request['longitude'],
         ]);
-        
+
         $deliveryman_name = User::where('id', $request['id'])->first();
         $response = event(new RiderMove($request['id'], $request['latitude'], $request['longitude'], 'active', $deliveryman_name['name']));
     }

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Customer;
-use App\Models\Deliveryman;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
@@ -18,13 +16,13 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
 
-        // find user 
-        $user = User::where('email', $fields['email']) -> first();
+        // find user
+        $user = User::where('email', $fields['email'])->first();
 
         // check password && valid user password
-        if(!$user || !Hash::check($fields['password'], $user->password)) {
-            return response ([
-                'message' => 'Invalid username or password'
+        if (!$user || !Hash::check($fields['password'], $user->password)) {
+            return response([
+                'message' => 'Invalid username or password',
             ], 401);
         }
 
@@ -32,7 +30,7 @@ class LoginController extends Controller
 
         $response = [
             'user' => $user,
-            'token' => $token
+            'token' => $token,
         ];
 
         return response($response, 201);

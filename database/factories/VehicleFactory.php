@@ -19,7 +19,7 @@ class VehicleFactory extends Factory
         return [
             'type' => $this->faker->word(),
             'wheels' => 2,
-            'seater' => 0
+            'seater' => 0,
         ];
     }
 }

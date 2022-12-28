@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Menu;
+use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
@@ -15,6 +15,7 @@ class MenuController extends Controller
     public function index()
     {
         dump('henlo');
+
         return Menu::all();
     }
 
@@ -47,6 +48,7 @@ class MenuController extends Controller
     public function show($id)
     {
         $menu = Menu::find($id);
+
         return Menu::find($id);
     }
 
@@ -61,6 +63,7 @@ class MenuController extends Controller
     {
         $menu = Menu::find($id);
         $menu->update($request->all());
+
         return $menu;
     }
 
@@ -77,6 +80,6 @@ class MenuController extends Controller
 
     public function search($name)
     {
-        return Menu::where('name', 'like', '%'.$name.'%')->get();
+        return Menu::where('name', 'like', '%' . $name . '%')->get();
     }
 }

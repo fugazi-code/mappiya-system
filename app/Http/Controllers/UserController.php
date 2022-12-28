@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Customer;
-use App\Models\Deliveryman;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -27,8 +24,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request)
-    {   
+    {
         $user_id = $request->user();
+
         return User::where('id', $user_id['id'])->with('info')->get();
     }
 
@@ -49,6 +47,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user_id = $request->user();
+
         return User::destroy($user_id['id']);
     }
 }

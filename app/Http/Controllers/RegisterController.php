@@ -2,27 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Customer;
 use App\Models\Deliveryman;
+use App\Models\User;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Vehicle;
 
 class RegisterController extends Controller
 {
     public $info_id = 1;
 
     // roles: 1 = Admin, 2 = Restaurant, 3 = Rider, 4 = Customer
-    public function register(Request $request, Response $response) {
+    public function register(Request $request, Response $response)
+    {
         $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string',
             'roles' => 'in:3,4',
         ]);
-        
+
         switch($fields['roles']) {
             case 3:
                 $class = Deliveryman::class;
@@ -37,17 +37,18 @@ class RegisterController extends Controller
                 // dump($request['vehicle_id']);
 
                 $vehicle = Vehicle::where('id', $request['vehicle_id'])->get();
-                if(!$vehicle)
-                return response ([
-                    'message' => 'Invalid vehicle id'
-                ], 401);
+                if (!$vehicle) {
+                    return response([
+                        'message' => 'Invalid vehicle id',
+                    ], 401);
+                }
 
                 $deliveryman = Deliveryman::create($request->all());
                 $this->info_id = $deliveryman['id'];
                 break;
             case 4:
                 $class = Customer::class;
-                
+
                 $request->validate([
                     'phone_no' => 'required|string',
                     'address' => 'required|string',
@@ -58,7 +59,7 @@ class RegisterController extends Controller
                 $this->info_id = $customer['id'];
                 break;
             default:
-                abort(404, "Invalid role");
+                abort(404, 'Invalid role');
         }
 
         $user = User::create([
@@ -74,9 +75,9 @@ class RegisterController extends Controller
 
         $response = [
             'user' => $user,
-            'token' => $token
+            'token' => $token,
         ];
+
         return response($response, 201);
     }
-
 }

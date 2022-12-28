@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Vehicle::factory(5)->create();
-        
+
         User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',

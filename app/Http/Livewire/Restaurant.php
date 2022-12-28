@@ -2,11 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use WithPagination;
 use App\Models\Restaurant as RestaurantModel;
-use Illuminate\Http\Request;
 use Livewire\Component;
-use Illuminate\Validation\Validator;
 
 class Restaurant extends Component
 {
@@ -14,7 +11,6 @@ class Restaurant extends Component
     public $address;
     public $longitude;
     public $latitude;
-
     public $restaurant_id;
 
     protected $rules = [
@@ -23,6 +19,11 @@ class Restaurant extends Component
         'longitude' => ['required'],
         'latitude' => ['required'],
     ];
+
+    public function render()
+    {
+        return view('livewire.restaurant')->layout('layouts.admin');
+    }
 
     public function store()
     {
@@ -35,13 +36,13 @@ class Restaurant extends Component
     public function editRestaurant(int $restaurant_id)
     {
         $restaurant = RestaurantModel::find($restaurant_id);
-        if($restaurant){
+        if ($restaurant) {
             $this->restaurant_id = $restaurant->id;
             $this->name = $restaurant->name;
             $this->address = $restaurant->address;
             $this->longitude = $restaurant->longitude;
             $this->latitude = $restaurant->latitude;
-        }else{
+        } else {
             return redirect()->to('/restaurant');
         }
     }
@@ -49,7 +50,7 @@ class Restaurant extends Component
     public function update()
     {
         $validatedData = $this->validate();
-        RestaurantModel::where('id',$this->restaurant_id)->update([
+        RestaurantModel::where('id', $this->restaurant_id)->update([
             'name' => $validatedData['name'],
             'address' => $validatedData['address'],
             'longitude' => $validatedData['longitude'],
@@ -87,11 +88,4 @@ class Restaurant extends Component
     {
         return redirect()->route('menu', ['id'=> $id]);
     }
-
-    public function render()
-    {
-        $restaurants = RestaurantModel::all();
-        return view('livewire.restaurant', ['restaurants' => $restaurants])->layout('layouts.admin');
-    }
-
 }

@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     use HasFactory;
-    
+
     // status: pending, paid; type: cash, gcash
     public $fillable = [
-        "payment_no",
-        "amount",
-        "status",
-        "type",
+        'payment_no',
+        'amount',
+        'status',
+        'type',
     ];
 }

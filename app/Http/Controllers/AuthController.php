@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use App\Models\User;
 use App\Models\Customer;
 use App\Models\Deliveryman;
+use App\Models\User;
 use App\Models\Vehicle;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -15,14 +15,15 @@ class AuthController extends Controller
     public $info_id = 1;
 
     // roles: 1 = Admin, 2 = Restaurant, 3 = Rider, 4 = Customer
-    public function register(Request $request, Response $response) {
+    public function register(Request $request, Response $response)
+    {
         $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string',
             'roles' => 'in:3,4',
         ]);
-        
+
         switch($fields['roles']) {
             case 3:
                 $class = Deliveryman::class;
@@ -37,17 +38,18 @@ class AuthController extends Controller
                 // dump($request['vehicle_id']);
 
                 $vehicle = Vehicle::where('id', $request['vehicle_id'])->get();
-                if(!$vehicle)
-                return response ([
-                    'message' => 'Invalid vehicle id'
-                ], 401);
+                if (!$vehicle) {
+                    return response([
+                        'message' => 'Invalid vehicle id',
+                    ], 401);
+                }
 
                 $deliveryman = Deliveryman::create($request->all());
                 $this->info_id = $deliveryman['id'];
                 break;
             case 4:
                 $class = Customer::class;
-                
+
                 $request->validate([
                     'phone_no' => 'required|string',
                     'address' => 'required|string',
@@ -58,7 +60,7 @@ class AuthController extends Controller
                 $this->info_id = $customer['id'];
                 break;
             default:
-                abort(404, "Invalid role");
+                abort(404, 'Invalid role');
         }
 
         $user = User::create([
@@ -74,8 +76,9 @@ class AuthController extends Controller
 
         $response = [
             'user' => $user,
-            'token' => $token
+            'token' => $token,
         ];
+
         return response($response, 201);
     }
 
@@ -86,13 +89,13 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        // find user 
-        $user = User::where('email', $fields['email']) -> first();
+        // find user
+        $user = User::where('email', $fields['email'])->first();
 
         // check password && valid user password
-        if(!$user || !Hash::check($fields['password'], $user->password)) {
-            return response ([
-                'message' => 'Invalid username or password'
+        if (!$user || !Hash::check($fields['password'], $user->password)) {
+            return response([
+                'message' => 'Invalid username or password',
             ], 401);
         }
 
@@ -100,7 +103,7 @@ class AuthController extends Controller
 
         $response = [
             'user' => $user,
-            'token' => $token
+            'token' => $token,
         ];
 
         return response($response, 201);

@@ -2,11 +2,9 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Menu as MenuModel;
 use App\Models\Restaurant;
-use Illuminate\Http\Request;
-
+use Livewire\Component;
 
 class Menu extends Component
 {
@@ -48,14 +46,14 @@ class Menu extends Component
     public function editMenu(int $menu_id)
     {
         $menu = MenuModel::find($menu_id);
-        if($menu){
+        if ($menu) {
             $this->menu_id = $menu->id;
             $this->name = $menu->name;
             $this->category = $menu->category;
             $this->description = $menu->description;
             $this->price = $menu->price;
             $this->image = $menu->image;
-        }else{
+        } else {
             return redirect()->route('menu', ['id'=> $restaurant_id]);
         }
     }
@@ -63,7 +61,7 @@ class Menu extends Component
     public function update()
     {
         $validatedData = $this->validate();
-        MenuModel::where('id',$this->menu_id)->update([
+        MenuModel::where('id', $this->menu_id)->update([
             'restaurant_id' => $this->restaurant_id,
             'name' => $this->name,
             'category' => $this->category,
@@ -105,10 +103,11 @@ class Menu extends Component
         $restaurant = Restaurant::where('id', $id)->with('menus')->get();
         $this->restaurant_id = $id;
 
-        if($restaurant) {
+        if ($restaurant) {
             $this->menus = $restaurant[0]['menus'];
             $this->restaurant = $restaurant[0];
         }
+
         return view('livewire.menu')->layout('layouts.admin');
     }
 

@@ -21,8 +21,8 @@ class UserFactory extends Factory
     public function definition()
     {
         // 1 = Admin, 2 = Restaurant, 3 = Rider, 4 = Customer
-        $role = $this->faker->randomElement([2,3,4]);
-        
+        $role = $this->faker->randomElement([2, 3, 4]);
+
         switch($role) {
             case 2:
                 $factory = Restaurant::factory()->create();

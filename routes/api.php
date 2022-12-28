@@ -1,20 +1,17 @@
 <?php
 
-use App\Http\Controllers\SanctumTokenController;
-use App\Http\Controllers\MenuController;
-use App\Http\Controllers\RestaurantController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DeliverymanController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RiderMoveController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\SanctumTokenController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Events\RiderMove;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +31,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::group(['middleware'=>['auth:sanctum']], function () {
     Route::get('/user/getuser', [UserController::class, 'show']);
     Route::delete('/user/{id}', [UserController::class, 'destroy']);
-    
+
     Route::put('/customer', [CustomerController::class, 'update']);
     Route::put('/deliveryman', [DeliverymanController::class, 'update']);
 
@@ -74,7 +71,6 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
     Route::post('/move', [RiderMoveController::class, 'move']);
     Route::post('/inactive', [RiderMoveController::class, 'inactive']);
     Route::post('/active', [RiderMoveController::class, 'active']);
-
 });
 
 Route::post('/sanctum/token', [SanctumTokenController::class, 'getToken']);

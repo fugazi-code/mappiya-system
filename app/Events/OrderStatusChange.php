@@ -4,8 +4,6 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -14,6 +12,7 @@ class OrderStatusChange implements ShouldBroadcast
 {
     public $id;
     public $status;
+
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
@@ -21,7 +20,7 @@ class OrderStatusChange implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($id,  $status)
+    public function __construct($id, $status)
     {
         $this->id = $id;
         $this->status = $status;

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -12,9 +12,9 @@ class CustomerController extends Controller
     public function update(Request $request, Response $response)
     {
         $user_id = $request->user();
-        if($user_id['roles'] != 4) {
-            return response ([
-                'message' => 'Invalid user role'
+        if ($user_id['roles'] != 4) {
+            return response([
+                'message' => 'Invalid user role',
             ], 401);
         }
 
@@ -24,18 +24,19 @@ class CustomerController extends Controller
             'roles' => 'in:3,4',
         ]);
         $user = User::find($user_id['id']);
-        if(!$user) {
-            return response ([
-                'message' => 'Unable to find user'
+        if (!$user) {
+            return response([
+                'message' => 'Unable to find user',
             ], 401);
         }
-            
+
         $customer = Customer::find($user['info_id']);
         $customer->update($request->all());
 
         $user->update($request->all());
-        return response ([
-            'message' => 'Success'
+
+        return response([
+            'message' => 'Success',
         ], 201);
     }
 }

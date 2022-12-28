@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire\Datatables;
 
+use App\Models\Restaurant;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\Restaurant;
 
 class RestaurantDatatable extends DataTableComponent
 {
@@ -18,23 +18,23 @@ class RestaurantDatatable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make("Id", "id")
+            Column::make('Id', 'id')
                 ->sortable(),
-            Column::make("Name", "name")
+            Column::make('Name', 'name')
                 ->sortable(),
-            Column::make("Address", "address")
+            Column::make('Address', 'address')
                 ->sortable(),
-            Column::make("Longitude", "longitude")
+            Column::make('Longitude', 'longitude')
                 ->sortable(),
-            Column::make("Latitude", "latitude")
+            Column::make('Latitude', 'latitude')
                 ->sortable(),
-            Column::make("Is available", "is_available")
+            Column::make('Is available', 'is_available')
                 ->sortable(),
-            Column::make("Is blocked", "is_blocked")
+            Column::make('Is blocked', 'is_blocked')
                 ->sortable(),
-            Column::make("Created at", "created_at")
+            Column::make('Created at', 'created_at')
                 ->sortable(),
-            Column::make("Updated at", "updated_at")
+            Column::make('Updated at', 'updated_at')
                 ->sortable(),
         ];
     }

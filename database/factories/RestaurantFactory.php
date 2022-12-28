@@ -20,7 +20,7 @@ class RestaurantFactory extends Factory
             'name' => $this->faker->company(),
             'address' => $this->faker->address(),
             'longitude' => $this->faker->latitude(14.665008, 13.732053),
-            'latitude' => $this->faker->longitude(120.517579,121.162512),
+            'latitude' => $this->faker->longitude(120.517579, 121.162512),
         ];
     }
 }

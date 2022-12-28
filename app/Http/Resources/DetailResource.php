@@ -26,19 +26,19 @@ class DetailResource extends JsonResource
 
         $parsed = ['message' => 'No Details'];
 
-        if($this->role == 2) {
+        if ($this->role == 2) {
             $parsed = [
-                "name" => $this->name,
-                "address" => $this->address,
-                "longitude" => $this->longitude,
-                "latitude" => $this->latitude,
-                "is_available" => $this->is_available,
-                "is_blocked" => $this->is_blocked,
-                "deleted_at" => $this->deleted_at,
-                "role" => $this->role,
+                'name' => $this->name,
+                'address' => $this->address,
+                'longitude' => $this->longitude,
+                'latitude' => $this->latitude,
+                'is_available' => $this->is_available,
+                'is_blocked' => $this->is_blocked,
+                'deleted_at' => $this->deleted_at,
+                'role' => $this->role,
             ];
         }
-        if($this->role == 3) {
+        if ($this->role == 3) {
             $parsed = [
                 'phone_no'=> $this->phone_no,
                 'address'=> $this->address,
@@ -49,7 +49,7 @@ class DetailResource extends JsonResource
                 'is_active'=> $this->is_active,
             ];
         }
-        if($this->role == 4) {
+        if ($this->role == 4) {
             $parsed = [
                 'phone_no' => $this->phone_no,
                 'address' => $this->address,

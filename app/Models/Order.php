@@ -4,24 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Customer;
-use App\Models\Item;
-use App\Models\Deliveryman;
 
 class Order extends Model
 {
     use HasFactory;
 
     // status: pending, processing, delivery, completed
-    protected $fillable=[
-        "order_no",
-        "dispatch_lat",
-        "dispatch_long",
-        "deliveryman_id",
-        "customer_id",
-        "status",
-        "payment_no",
-        "distance_km",
+    protected $fillable = [
+        'order_no',
+        'dispatch_lat',
+        'dispatch_long',
+        'deliveryman_id',
+        'customer_id',
+        'status',
+        'payment_no',
+        'distance_km',
     ];
 
     protected $attributes = [
@@ -31,12 +28,12 @@ class Order extends Model
         'distance_km' => null,
     ];
 
-    public function customer() 
+    public function customer()
     {
         return $this->belongsTo(Customer::class);
     }
 
-    public function deliveryman() 
+    public function deliveryman()
     {
         return $this->belongsTo(Deliveryman::class);
     }

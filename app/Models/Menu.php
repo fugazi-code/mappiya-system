@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Restaurant;
 
 class Menu extends Model
 {
@@ -21,7 +20,7 @@ class Menu extends Model
         'is_available',
     ];
 
-    public function restaurant() 
+    public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
     }
