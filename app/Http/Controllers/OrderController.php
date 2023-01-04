@@ -52,6 +52,19 @@ class OrderController extends Controller
         return 'TN' . $zeroes . $newOrderNo;
     }
 
+    public function generatePaymentNo()
+    {
+        $payment = Payment::latest()->first();
+        if (!$payment) {
+            $newOrderNo = 1;
+        } else {
+            $newOrderNo = $payment['id'] + 1;
+        }
+
+        $zeroes = $this->generateZeroes($newOrderNo);
+        return 'OR' . $zeroes . $newOrderNo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -71,18 +84,18 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            // 'order_no' => 'required|string',
             'dispatch_lat' => 'required|string',
             'dispatch_long' => 'required|string',
             'customer_id' => 'required|numeric',
             'items.*.menu_id' => 'required|numeric',
             'items.*.quantity' => 'required|numeric',
 
-            'payment_no' => 'required|string',
+            // 'payment_no' => 'required|string',
             'type' => 'required|string',
             'distanceKm' => 'required|string',
         ]);
         $request['order_no'] = $this->generateOrderNo();
+        $request['payment_no'] = $this->generatePaymentNo();
         $this->items = $request['items'];
         $order = Order::create($request->all());
 
