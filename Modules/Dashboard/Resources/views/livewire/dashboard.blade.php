@@ -4,9 +4,9 @@
             <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                     <h3 class="font-weight-bold">Welcome {{ auth()->user()->name }}</h3>
-                    <h6 class="font-weight-normal mb-0">All systems are running smoothly! You have <span class="text-primary">3 unread alerts!</span></h6>
+                    <h6 class="font-weight-normal mb-0">All systems are running smoothly!</h6>
                 </div>
-                <div class="col-12 col-xl-4">
+                {{-- <div class="col-12 col-xl-4">
                     <div class="justify-content-end d-flex">
                         <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
                             <button class="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -20,11 +20,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
                 <div class="card-body">
@@ -120,7 +120,6 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-4 stretch-card grid-margin">
             <div class="card">
@@ -331,5 +330,5 @@
 
 
         </div>
-    </div>
+    </div> --}}
 </div>
