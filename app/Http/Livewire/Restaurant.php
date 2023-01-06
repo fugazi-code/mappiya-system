@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Restaurant as RestaurantModel;
 use Livewire\Component;
+use App\Models\Restaurant as RestaurantModel;
 
 class Restaurant extends Component
 {
@@ -19,6 +19,8 @@ class Restaurant extends Component
         'longitude' => ['required'],
         'latitude' => ['required'],
     ];
+
+    protected $listeners = ['bindRestaurant' => 'bind'];
 
     public function render()
     {
@@ -58,17 +60,14 @@ class Restaurant extends Component
         ]);
         $this->resetInput();
         $this->dispatchBrowserEvent('closeModal');
-    }
-
-    public function deleteRestaurant(int $restaurant_id)
-    {
-        $this->restaurant_id = $restaurant_id;
+        $this->emit('refreshDatatable');
     }
 
     public function destroy()
     {
         RestaurantModel::find($this->restaurant_id)->delete();
         $this->dispatchBrowserEvent('closeModal');
+        $this->emit('refreshDatatable');
     }
 
     public function closeModal()
@@ -78,6 +77,7 @@ class Restaurant extends Component
 
     public function resetInput()
     {
+        $this->restaurant_id = null;
         $this->name = '';
         $this->address = '';
         $this->longitude = '';
@@ -87,5 +87,10 @@ class Restaurant extends Component
     public function menu($id)
     {
         return redirect()->route('menu', ['id'=> $id]);
+    }
+
+    public function bind($value)
+    {
+        $this->editRestaurant($value);
     }
 }

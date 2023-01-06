@@ -18,8 +18,10 @@ class RestaurantDatatable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make('Id', 'id')
-                ->sortable(),
+            Column::make('Acction', 'id')
+                ->format(fn ($value) =>  view('livewire.partials.edit-btn', ['id' => $value]))
+                ->sortable()
+                ->html(),
             Column::make('Name', 'name')
                 ->sortable(),
             Column::make('Address', 'address')

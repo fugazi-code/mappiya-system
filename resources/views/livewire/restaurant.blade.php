@@ -19,7 +19,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="updateRestaurantModalLabel">Edit Restaurant</h5>
+                    <h5 class="modal-title" id="updateRestaurantModalLabel">
+                        @if ($restaurant_id)
+                            Edit Restaurant
+                        @else
+                            Add Restaurant
+                        @endif
+                    </h5>
                     <button type="button" class="btn-close" data-dismiss="modal" wire:click="closeModal"
                         aria-label="Close"></button>
                 </div>
@@ -59,7 +65,8 @@
                     <div class="modal-footer">
                         <button id="update-cancel-btn" type="button" class="btn btn-secondary" wire:click="closeModal"
                             data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-primary" wire:click='save'>Save</button>
+                        <button type="button" class="btn btn-danger" wire:click='destroy'>Delete</button>
                     </div>
                 </form>
             </div>
