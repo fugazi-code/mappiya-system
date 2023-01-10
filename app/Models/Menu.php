@@ -24,4 +24,9 @@ class Menu extends Model
     {
         return $this->belongsTo(Restaurant::class);
     }
+
+    public function categorized()
+    {
+        return $this->hasOne(MenuCategory::class, 'id', 'category');
+    }
 }

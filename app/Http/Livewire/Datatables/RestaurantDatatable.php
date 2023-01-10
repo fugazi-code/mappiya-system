@@ -23,12 +23,12 @@ class RestaurantDatatable extends DataTableComponent
                 ->sortable()
                 ->html(),
             Column::make('Name', 'name')
-                ->sortable(),
-            Column::make('Address', 'address')
-                ->sortable(),
-            Column::make('Longitude', 'longitude')
-                ->sortable(),
-            Column::make('Latitude', 'latitude')
+                ->format(function ($value, $row) {
+                    return '<a href="' . route('menu', ['restaurant_id' => $row->id])
+                    . "\" class=\"btn btn-link\">{$row->name}</a>";
+                })
+                ->html()
+                ->searchable()
                 ->sortable(),
             Column::make('Is available', 'is_available')
                 ->sortable(),

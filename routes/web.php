@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Livewire\Customer;
 use App\Http\Livewire\DeliveryPeople;
 use App\Http\Livewire\Map;
@@ -14,11 +15,9 @@ Auth::routes();
 
 Route::middleware(['auth:web'])
      ->group(function () {
-         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+         Route::get('/', [HomeController::class, 'index'])->name('home');
          Route::get('/restaurant', Restaurant::class)->name('restaurant');
-         Route::get('/restaurant/{id}/menu', Menu::class)->name('menu');
-         //  Route::get('/menu', Menu::class)->name('menu');
-         //  Route::post('/restaurant', Restaurant::class)->name('restaurant');
+         Route::get('/restaurant/menu', Menu::class)->name('menu');
          Route::get('/customer', Customer::class)->name('customer');
          Route::get('/delivery-people', DeliveryPeople::class)->name('delivery-people');
          Route::get('/promocodes', Promocodes::class)->name('promocodes');

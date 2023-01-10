@@ -36,12 +36,7 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
     Route::put('/deliveryman', [DeliverymanController::class, 'update']);
 
     // menu routes
-    Route::get('/menu', [MenuController::class, 'index']);
-    Route::get('/menu/{id}', [MenuController::class, 'show']);
-    Route::post('/menu', [MenuController::class, 'store']);
-    Route::put('/menu/{id}', [MenuController::class, 'update']);
-    Route::delete('/menu/{id}', [MenuController::class, 'destroy']);
-    Route::get('/menu/search/{name}', [MenuController::class, 'search']);
+    Route::apiResource('menu', MenuController::class)->only(['show']);
 
     // restaurant routes
     Route::get('/restaurant', [RestaurantController::class, 'index']);

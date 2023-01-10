@@ -81,9 +81,9 @@
     {{-- @stack('scripts') --}}
     <script>
         window.addEventListener('closeModal', event => {
-            $('#create-cancel-btn').click();
-            $('#update-cancel-btn').click();
-            $('#delete-cancel-btn').click();
+            $('.create-cancel-btn').click();
+            $('.update-cancel-btn').click();
+            $('.delete-cancel-btn').click();
         });
     </script>
     <!-- endinject -->

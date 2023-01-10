@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Restaurant as RestaurantModel;
+use Livewire\Component;
 
 class Restaurant extends Component
 {
