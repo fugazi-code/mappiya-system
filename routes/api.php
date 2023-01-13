@@ -37,6 +37,7 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
 
     // menu routes
     Route::apiResource('menu', MenuController::class)->only(['show']);
+    Route::post('categories', [MenuController::class, 'categories']);
 
     // restaurant routes
     Route::get('/restaurant', [RestaurantController::class, 'index']);
