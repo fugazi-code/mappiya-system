@@ -85,6 +85,7 @@
             $('.update-cancel-btn').click();
             $('.delete-cancel-btn').click();
         });
+        // console.log('key', config('google-map.api-key'))
     </script>
     <!-- endinject -->
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('google-map.api-key') }}&callback=initMap&v=weekly"

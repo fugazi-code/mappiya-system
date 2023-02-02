@@ -18,7 +18,8 @@ class MenuResource extends JsonResource
             'name' => $this->name,
             'category' => $this->category,
             'description' => $this->description,
-            'price' => $this->price,
+            'selling_price' => $this->selling_price,
+            'vendor_price' => $this->vendor_price,
             'image' => $this->image,
             'is_available' => $this->is_available,
         ];
