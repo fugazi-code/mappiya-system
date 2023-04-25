@@ -39,4 +39,9 @@ class CustomerController extends Controller
             'message' => 'Success',
         ], 201);
     }
+
+    public function list()
+    {
+        return Customer::paginate(15);
+    }
 }

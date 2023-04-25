@@ -27,12 +27,14 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/register', [RegisterController::class, 'register']);
 
+Route::get('/customer/list', [CustomerController::class, 'list']);
 // protected routes
 Route::group(['middleware'=>['auth:sanctum']], function () {
     Route::get('/user/getuser', [UserController::class, 'show']);
     Route::delete('/user/{id}', [UserController::class, 'destroy']);
 
     Route::put('/customer', [CustomerController::class, 'update']);
+
     Route::put('/deliveryman', [DeliverymanController::class, 'update']);
 
     // menu routes
