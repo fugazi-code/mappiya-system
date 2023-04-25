@@ -14,14 +14,9 @@ return new class extends Migration {
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('restaurant_id')
-            ->constrained()
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
             $table->string('name');
             $table->decimal('price');
-            $table->string('description');
-            $table->string('category');
+            $table->text('description');
             $table->string('image')->nullable();
             $table->integer('stock')->default(0);
             $table->integer('is_available')->default(0);

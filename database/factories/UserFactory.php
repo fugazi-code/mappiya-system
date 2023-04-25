@@ -2,11 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Menu;
 use App\Models\Customer;
-use App\Models\Deliveryman;
 use App\Models\Restaurant;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Enums\UserRolesEnum;
+use App\Models\Deliveryman;
 use Illuminate\Support\Str;
+use App\Models\MenuCategory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -21,11 +24,18 @@ class UserFactory extends Factory
     public function definition()
     {
         // 1 = Admin, 2 = Restaurant, 3 = Rider, 4 = Customer
-        $role = $this->faker->randomElement([2, 3, 4]);
+        $role = $this->faker->randomElement([
+            UserRolesEnum::SHOP->value,
+            UserRolesEnum::RIDER->value,
+            UserRolesEnum::CUSTOMER->value
+        ]);
 
-        switch($role) {
+        switch ($role) {
             case 2:
-                $factory = Restaurant::factory()->create();
+                $factory = Restaurant::factory()
+                    ->has(
+                        MenuCategory::factory(10)->has(Menu::factory(10))
+                    )->create();
                 $class = Restaurant::class;
                 break;
             case 3:
