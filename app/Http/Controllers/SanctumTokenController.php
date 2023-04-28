@@ -25,6 +25,6 @@ class SanctumTokenController extends Controller
             ]);
         }
 
-        return $user->createToken($request->device_name)->plainTextToken;
+        return response(["token" => $user->createToken($request->device_name)->plainTextToken], 200);
     }
 }
