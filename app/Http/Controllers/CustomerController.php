@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -42,6 +43,8 @@ class CustomerController extends Controller
 
     public function list()
     {
-        return Customer::paginate(15);
+        $customers = Customer::paginate();
+
+        return CustomerResource::collection($customers);
     }
 }
