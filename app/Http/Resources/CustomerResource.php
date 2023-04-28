@@ -14,7 +14,6 @@ class CustomerResource extends JsonResource
      */
     public function toArray($request)
     {
-        dd($this->user);
         return [
             'customer_id' => $this->id,
             'user_email' => $this->user->email

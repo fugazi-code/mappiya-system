@@ -29,15 +29,6 @@ class UserController extends Controller
 
         return User::where('id', $user_id['id'])->with('info')->get();
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-
     /**
      * Remove the specified resource from storage.
      *
@@ -46,8 +37,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user_id = $request->user();
-
-        return User::destroy($user_id['id']);
+        return User::destroy($id);
     }
 }
