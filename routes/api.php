@@ -24,7 +24,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/login', [LoginController::class, 'login']);
+// We are using default Sanctum Authentication
+// Route::post('/login', [LoginController::class, 'login']);
+Route::post('/sanctum/token', [SanctumTokenController::class, 'getToken']);
 Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/customer/list', [CustomerController::class, 'list']);
@@ -72,4 +74,3 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
     Route::post('/active', [RiderMoveController::class, 'active']);
 });
 
-Route::post('/sanctum/token', [SanctumTokenController::class, 'getToken']);
