@@ -42,7 +42,7 @@ class UserFactory extends Factory
                 $factory = Deliveryman::factory()->create();
                 $class = Deliveryman::class;
                 break;
-            default:
+            case 4:
                 $factory = Customer::factory()->create();
                 $class = Customer::class;
                 break;

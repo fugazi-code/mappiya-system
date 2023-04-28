@@ -18,14 +18,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Vehicle::factory(5)->create();
-
-        User::factory()->create([
+        User::create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',
             'roles' => UserRolesEnum::ADMIN->value,
+            'password' => bcrypt('password')
         ]);
 
-        User::factory(100)->create();
+        Vehicle::factory(5)->create();
+        User::factory(20)->create();
     }
 }
