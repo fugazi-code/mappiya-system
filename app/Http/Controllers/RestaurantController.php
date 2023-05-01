@@ -14,8 +14,7 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        // return Restaurant::all();
-        return Restaurant::with('menus')->get();
+        return Restaurant::paginate();
     }
 
     /**
