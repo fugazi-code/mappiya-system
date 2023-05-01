@@ -51,6 +51,7 @@ Route::group(['middleware'=>['auth:sanctum']], function () {
     Route::put('/restaurant/{id}', [RestaurantController::class, 'update']);
     Route::delete('/restaurant/{id}', [RestaurantController::class, 'destroy']);
     Route::get('/restaurant/search/{name}', [RestaurantController::class, 'search']);
+    Route::post('/restaurant/profile/image/upload', [RestaurantController::class, 'uploadProfileImage']);
 
     // order routes
     Route::post('/order', [OrderController::class, 'store']);

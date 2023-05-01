@@ -76,4 +76,14 @@ class RestaurantController extends Controller
     {
         return Restaurant::where('name', 'like', '%' . $name . '%')->get();
     }
+
+    public function uploadProfileImage(Request $request)
+    {
+        $restaurant =  Restaurant::findOrFail($request->get('restaurant_id'));
+        $restaurant->media()->delete();
+        $restaurant->addMedia($request->file('image'))->toMediaCollection();
+        $restaurant->refresh();
+        
+        return $restaurant->getMedia();
+    }
 }
