@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\Restaurant;
 use App\Models\MenuCategory;
 use Illuminate\Http\Request;
 use App\Http\Resources\MenuResource;
@@ -10,22 +11,16 @@ use App\Http\Resources\MenuCategoryResource;
 
 class MenuController extends Controller
 {
-    public function show($restaurantId)
+    public function categories(Restaurant $restaurant)
     {
-        return MenuResource::collection(Menu::query()->where('restaurant_id', $restaurantId)->get());
-    }
+        $menuCategory = $restaurant->load('menuCategory.menu')->menuCategory;
 
-    public function categories(Request $request)
-    {
-        return MenuCategoryResource::collection(
-            MenuCategory::query()->where('restaurant_id', $request->get('resturantId'))->get()
-        );
+        return MenuCategoryResource::collection($menuCategory);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'restaurant_id' => 'required|numeric',
             'name' => 'required|string',
             'category' => 'required|string',
             'description' => 'required|string',
