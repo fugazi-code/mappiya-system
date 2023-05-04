@@ -28,6 +28,8 @@ class Restaurant extends Model implements HasMedia
       'is_blocked' => 0,
     ];
 
+    protected $with = ['media'];
+
     public function menuCategory()
     {
         return $this->hasMany(MenuCategory::class);

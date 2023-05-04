@@ -34,6 +34,9 @@ class UserFactory extends Factory
         switch ($role) {
             case 2:
                 $factory = Restaurant::factory()
+                    ->afterCreating(function (Restaurant $model) {
+                        $model->addMedia($this->faker->image())->toMediaCollection('banner');
+                    })
                     ->has(
                         MenuCategory::factory(10)->has(Menu::factory(10))
                     )->create();
