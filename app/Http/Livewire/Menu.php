@@ -14,9 +14,10 @@ class Menu extends Component
     public $restaurant_id;
     public $menu_id;
     public $name;
-    public $category = '';
+    public $menu_category_id = '';
     public $description;
-    public $price;
+    public $selling_price;
+    public $vendor_price;
     public $image;
     public $isAvailable;
     public $count = 0;
@@ -25,9 +26,10 @@ class Menu extends Component
 
     protected $rules = [
         'name' => 'required|string',
-        'category' => 'required|string',
+        'menu_category_id' => 'required',
         'description' => 'required|string',
-        'price' => 'required|numeric',
+        'selling_price' => 'required|numeric',
+        'vendor_price' => 'required|numeric',
     ];
 
     protected $queryString = ['restaurant_id'];
@@ -40,9 +42,9 @@ class Menu extends Component
 
     public function render()
     {
-        $this->menus = $this->restaurant->hasManyThrough(MenuModel::class, MenuCategory::class, 'category')->get();
-        dd($this->menus);
-        $this->categories = MenuCategory::query()->where('restaurant_id', $this->restaurant_id)->get();
+        $this->menus = MenuCategory::find($this->categorySelected)?->menu()->get();
+        
+        $this->categories = $this->restaurant->menuCategory()->get();
 
         return view('livewire.menu')->layout('layouts.admin');
     }
@@ -53,9 +55,10 @@ class Menu extends Component
         MenuModel::create([
             'restaurant_id' => $this->restaurant_id,
             'name' => $this->name,
-            'category' => $this->category,
+            'menu_category_id' => $this->menu_category_id,
             'description' => $this->description,
-            'price' => $this->price,
+            'selling_price' => $this->selling_price,
+            'vendor_price' => $this->vendor_price,
             'image' => $this->image,
             'is_available' => $this->isAvailable,
         ]);
@@ -69,9 +72,10 @@ class Menu extends Component
         $menu = MenuModel::find($menu_id);
         $this->name = $menu->name;
         $this->menu_id = $menu->id;
-        $this->price = $menu->price;
+        $this->selling_price = $menu->selling_price;
+        $this->vendor_price = $menu->vendor_price;
         $this->image = $menu->image;
-        $this->category = $menu->category;
+        $this->menu_category_id = $menu->menu_category_id;
         $this->description = $menu->description;
     }
 
@@ -79,11 +83,11 @@ class Menu extends Component
     {
         $this->validate();
         MenuModel::where('id', $this->menu_id)->update([
-            'restaurant_id' => $this->restaurant_id,
             'name' => $this->name,
-            'category' => $this->category,
+            'menu_category_id' => $this->menu_category_id,
             'description' => $this->description,
-            'price' => $this->price,
+            'selling_price' => $this->selling_price,
+            'vendor_price' => $this->vendor_price,
             'image' => $this->image,
         ]);
         $this->resetInput();
@@ -100,9 +104,10 @@ class Menu extends Component
     {
         $this->menu_id = null;
         $this->name = '';
-        $this->category = '';
+        $this->menu_category_id = '';
         $this->description = '';
-        $this->price = '';
+        $this->selling_price = '';
+        $this->vendor_price = '';
         $this->image = '';
     }
 }

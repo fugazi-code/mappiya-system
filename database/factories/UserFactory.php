@@ -38,7 +38,7 @@ class UserFactory extends Factory
                         $model->addMedia($this->faker->image())->toMediaCollection('banner');
                     })
                     ->has(
-                        MenuCategory::factory(10)->has(Menu::factory(10))
+                        MenuCategory::factory(5)->has(Menu::factory(5))
                     )->create();
                 $class = Restaurant::class;
                 break;

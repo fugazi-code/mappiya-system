@@ -11,40 +11,45 @@
             @livewire('menu-category', ['restaurant_id' => $restaurant_id])
         </div>
         <div class="col-12 mt-4">
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                @foreach ($categories as $key => $category)
-                    <label class="btn btn-sm btn-info @if ($key == 0) active @endif">
-                        <input type="radio" name="options" id="option{{ $key }}" value="{{ $category->id }}"
-                            @if ($key == 0) checked @endif wire:model='categorySelected'>
-                        {{ $category->name }}
+            <div class="">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    @foreach ($categories as $key => $category)
+                        <label class="btn btn-sm btn-info @if ($key == 0) active @endif">
+                            <input type="radio" name="options" id="option{{ $key }}"
+                                value="{{ $category->id }}" @if ($key == 0) checked @endif
+                                wire:model='categorySelected'>
+                            {{ $category->name }}
+                        </label>
+                    @endforeach
+                    <label class="btn btn-sm btn-warning">
+                        <input type="radio" name="options" id="optionlast" value=""
+                            wire:model='categorySelected'>
+                        uncategorized
                     </label>
-                @endforeach
-                <label class="btn btn-sm btn-warning">
-                    <input type="radio" name="options" id="optionlast" value="" wire:model='categorySelected'>
-                    uncategorized
-                </label>
+                </div>
             </div>
         </div>
         <div class="col-12 mt-4">
-            <div class="d-flex">
-                @foreach ($menus as $menu)
-                    <div class="card border mx-1" style="width: 18rem;">
-                        <img src="{{ $menu->image }}" class="card-img-top" alt="..." width="120"
-                            height="120">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $menu->name }}
-                                <span class="badge badge-secondary">{{ $menu->price }}</span>
-                            </h5>
-                            @if ($menu->categorized)
-                                <h6 class="card-subtitle mb-2 text-muted">{{ $menu->categorized->name }}</h6>
-                            @endif
-                            <p class="card-text">{{ $menu->description }}</p>
-                            <a href="#" class="card-link" data-toggle="modal"
-                                wire:click="editMenu({{ $menu->id }})" data-target="#createModal">Edit</a>
-                            <a href="#" class="card-link" wire:click='destroy({{ $menu->id }})'>Remove</a>
+            <div class="d-flex flex-wrap justify-content-center">
+                @empty(!$menus)
+                    @foreach ($menus as $menu)
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{ $menu->image }}" class="card-img-top" alt="{{ $menu->image }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $menu->name }}
+                                    <span class="badge badge-secondary">{{ $menu->price }}</span>
+                                </h5>
+                                @if ($menu->categorized)
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ $menu->categorized->name }}</h6>
+                                @endif
+                                <p class="card-text">{{ $menu->description }}</p>
+                                <a href="#" class="card-link" data-toggle="modal"
+                                    wire:click="editMenu({{ $menu->id }})" data-target="#createModal">Edit</a>
+                                <a href="#" class="card-link" wire:click='destroy({{ $menu->id }})'>Remove</a>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @endempty
             </div>
         </div>
     </div>
@@ -72,7 +77,7 @@
                         </div>
                         <div class="col-12">
                             <label>Category</label>
-                            <select class="form-control" wire:model="category">
+                            <select class="form-control" wire:model="menu_category_id">
                                 <option value="">-- Select Options --</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -88,8 +93,12 @@
                             <label class="my-auto ml-2">Available {{ $isAvailable }}</label>
                         </div>
                         <div class="col-12">
-                            <label>Price</label>
-                            <input type="number" class="form-control" wire:model="price">
+                            <label>Selling Price</label>
+                            <input type="number" class="form-control" wire:model="selling_price">
+                        </div>
+                        <div class="col-12">
+                            <label>Vendor Price</label>
+                            <input type="number" class="form-control" wire:model="vendor_price">
                         </div>
                         <div class="col-12">
                             <label>Image</label>
@@ -98,6 +107,23 @@
                         <div class="col-12">
                             <label>Description</label>
                             <textarea class="form-control" wire:model='description'></textarea>
+                        </div>
+                        <div class="col-12">
+                            @error('name')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
+                            @error('menu_category_id')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
+                            @error('description')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
+                            @error('selling_price')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
+                            @error('vendor_price')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                 </div>

@@ -20,13 +20,8 @@ class Menu extends Model
         'is_available',
     ];
 
-    public function restaurant()
-    {
-        return $this->belongsTo(Restaurant::class);
-    }
-
     public function categorized()
     {
-        return $this->hasOne(MenuCategory::class);
+        return $this->belongsTo(MenuCategory::class);
     }
 }
