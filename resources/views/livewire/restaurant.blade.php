@@ -63,9 +63,13 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button id="update-cancel-btn" type="button" class="btn btn-secondary" wire:click="closeModal"
+                        <button id="update-cancel-btn" type="button" class="btn btn-secondary update-cancel-btn" wire:click="closeModal"
                             data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" wire:click='save'>Save</button>
+                        @if ($restaurant_id)
+                            <button type="button" class="btn btn-primary" wire:click='update'>Update</button>
+                        @else
+                            <button type="button" class="btn btn-primary" wire:click='store'>Save</button>
+                        @endif
                         <button type="button" class="btn btn-danger" wire:click='destroy'>Delete</button>
                     </div>
                 </form>
