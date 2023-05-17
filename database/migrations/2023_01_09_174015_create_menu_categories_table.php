@@ -22,7 +22,7 @@ return new class extends Migration
         });
 
         Schema::table('menus', function (Blueprint $table) {
-            $table->foreignId('category')->constrained('menu_categories');
+            $table->foreignId('menu_category_id')->constrained('menu_categories');
         });
     }
 

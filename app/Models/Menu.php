@@ -11,7 +11,7 @@ class Menu extends Model
 
     protected $fillable = [
         'name',
-        'category',
+        'menu_category_id`',
         'description',
         'selling_price',
         'vendor_price',
@@ -27,6 +27,6 @@ class Menu extends Model
 
     public function categorized()
     {
-        return $this->hasOne(MenuCategory::class, 'id', 'category');
+        return $this->hasOne(MenuCategory::class);
     }
 }

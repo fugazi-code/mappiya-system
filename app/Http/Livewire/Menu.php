@@ -40,11 +40,8 @@ class Menu extends Component
 
     public function render()
     {
-        $this->menus = MenuModel::whereHas('categorized', function ($query) {
-            return $query->where('id', $this->categorySelected);
-        })
-            ->where('restaurant_id', $this->restaurant_id)
-            ->get();
+        $this->menus = $this->restaurant->hasManyThrough(MenuModel::class, MenuCategory::class, 'category')->get();
+        dd($this->menus);
         $this->categories = MenuCategory::query()->where('restaurant_id', $this->restaurant_id)->get();
 
         return view('livewire.menu')->layout('layouts.admin');
