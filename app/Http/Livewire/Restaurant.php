@@ -8,9 +8,13 @@ use Livewire\Component;
 class Restaurant extends Component
 {
     public $name;
+
     public $address;
+
     public $longitude;
+
     public $latitude;
+
     public $restaurant_id;
 
     protected $rules = [
@@ -86,7 +90,7 @@ class Restaurant extends Component
 
     public function menu($id)
     {
-        return redirect()->route('menu', ['id'=> $id]);
+        return redirect()->route('menu', ['id' => $id]);
     }
 
     public function bind($value)

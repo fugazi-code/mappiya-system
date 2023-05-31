@@ -11,6 +11,7 @@ use Illuminate\Queue\SerializesModels;
 class OrderStatusChange implements ShouldBroadcast
 {
     public $id;
+
     public $status;
 
     use Dispatchable, InteractsWithSockets, SerializesModels;

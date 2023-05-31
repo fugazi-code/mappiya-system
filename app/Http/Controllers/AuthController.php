@@ -24,7 +24,7 @@ class AuthController extends Controller
             'roles' => 'in:3,4',
         ]);
 
-        switch($fields['roles']) {
+        switch ($fields['roles']) {
             case 3:
                 $class = Deliveryman::class;
                 $request->validate([
@@ -38,7 +38,7 @@ class AuthController extends Controller
                 // dump($request['vehicle_id']);
 
                 $vehicle = Vehicle::where('id', $request['vehicle_id'])->get();
-                if (!$vehicle) {
+                if (! $vehicle) {
                     return response([
                         'message' => 'Invalid vehicle id',
                     ], 401);
@@ -93,7 +93,7 @@ class AuthController extends Controller
         $user = User::where('email', $fields['email'])->first();
 
         // check password && valid user password
-        if (!$user || !Hash::check($fields['password'], $user->password)) {
+        if (! $user || ! Hash::check($fields['password'], $user->password)) {
             return response([
                 'message' => 'Invalid username or password',
             ], 401);

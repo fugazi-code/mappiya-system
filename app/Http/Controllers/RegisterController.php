@@ -23,7 +23,7 @@ class RegisterController extends Controller
             'roles' => 'in:3,4',
         ]);
 
-        switch($fields['roles']) {
+        switch ($fields['roles']) {
             case 3:
                 $class = Deliveryman::class;
                 $request->validate([
@@ -37,7 +37,7 @@ class RegisterController extends Controller
                 // dump($request['vehicle_id']);
 
                 $vehicle = Vehicle::where('id', $request['vehicle_id'])->get();
-                if (!$vehicle) {
+                if (! $vehicle) {
                     return response([
                         'message' => 'Invalid vehicle id',
                     ], 401);

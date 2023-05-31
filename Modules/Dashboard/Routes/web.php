@@ -13,6 +13,6 @@
 
 use Modules\Dashboard\Http\Livewire\Dashboard;
 
-Route::middleware(['auth:web'])->group(function() {
+Route::middleware(['auth:web'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
 });

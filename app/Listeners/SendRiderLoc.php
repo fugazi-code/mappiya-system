@@ -19,7 +19,6 @@ class SendRiderLoc
     /**
      * Handle the event.
      *
-     * @param  \App\Events\RiderMove  $event
      * @return void
      */
     public function handle(RiderMove $event)

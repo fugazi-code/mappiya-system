@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum UserRolesEnum: int 
+enum UserRolesEnum: int
 {
     case ADMIN = 1;
     case SHOP = 2;

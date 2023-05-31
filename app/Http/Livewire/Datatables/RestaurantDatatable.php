@@ -19,13 +19,13 @@ class RestaurantDatatable extends DataTableComponent
     {
         return [
             Column::make('Acction', 'id')
-                ->format(fn ($value) =>  view('livewire.partials.edit-btn', ['id' => $value]))
+                ->format(fn ($value) => view('livewire.partials.edit-btn', ['id' => $value]))
                 ->sortable()
                 ->html(),
             Column::make('Name', 'name')
                 ->format(function ($value, $row) {
-                    return '<a href="' . route('menu', ['restaurant_id' => $row->id])
-                    . "\" class=\"btn btn-link\">{$row->name}</a>";
+                    return '<a href="'.route('menu', ['restaurant_id' => $row->id])
+                    ."\" class=\"btn btn-link\">{$row->name}</a>";
                 })
                 ->html()
                 ->searchable()

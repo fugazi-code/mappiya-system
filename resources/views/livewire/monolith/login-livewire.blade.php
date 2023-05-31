@@ -12,12 +12,13 @@
                             </div>
                             <h4>Eben Ezar Login Portal</h4>
                             <h6 class="font-weight-light">Sign in to continue.</h6>
-                            <form class="pt-3" method="POST" action="{{ route('login') }}">
+                            <div class="pt-3">
                                 @csrf
                                 <div class="form-group">
+                                    <label for="">E-mail</label>
                                     <input id="email" type="email"
                                            class="form-control @error('email') is-invalid @enderror" name="email"
-                                           value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                           wire:model="email" required autocomplete="email" autofocus>
 
                                     @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -26,9 +27,10 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
+                                    <label>Password</label>
                                     <input id="password" type="password"
                                            class="form-control @error('password') is-invalid @enderror" name="password"
-                                           required autocomplete="current-password">
+                                           required wire:model='password'>
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -46,7 +48,7 @@
                                     <a href="#" class="auth-link text-black">Forgot password?</a>
                                 </div>
                                 <div class="mt-3">
-                                    <button type="submit"
+                                    <button type="button" wire:click='login'
                                             class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
                                         {{ __('Login') }}
                                     </button>
@@ -65,7 +67,7 @@
                                 {{-- <div class="text-center mt-4 font-weight-light">
                                     Don't have an account? <a href="{{ route('register') }}" class="text-primary">Create</a>
                                 </div> --}}
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -29,7 +29,7 @@ class UserController extends Controller
         $model = PersonalAccessToken::findToken(request()->bearerToken())->first()->tokenable;
         $user = User::query()->find($model->id);
 
-        return (new DetailResource($user->info, $user->roles));
+        return new DetailResource($user->info, $user->roles);
     }
 
     public function updateDetail(Request $request)
@@ -74,7 +74,7 @@ class UserController extends Controller
             'info_type' => $class,
         ]);
 
-        return ['message' => 'New Account Has Been Added! ID: ' . $user->id];
+        return ['message' => 'New Account Has Been Added! ID: '.$user->id];
     }
 
     public function createCustomer(Request $request)
@@ -104,7 +104,6 @@ class UserController extends Controller
             'info_type' => Customer::class,
         ]);
 
-
         return ['message' => 'New Account for customer has been added!'];
     }
 
@@ -119,13 +118,13 @@ class UserController extends Controller
         ]);
 
         $result = Deliveryman::query()->create([
-            "phone_no" => $request->get('phone_no'),
-            "address" => $request->get('address'),
-            "plate_no" => $request->get('plate_no'),
-            "vehicle_id" => $request->get('vehicle_id'),
-            "profile_image" => $request->get('profile_image'),
-            "is_blocked" => $request->get('is_blocked'),
-            "is_active" => $request->get('is_active'),
+            'phone_no' => $request->get('phone_no'),
+            'address' => $request->get('address'),
+            'plate_no' => $request->get('plate_no'),
+            'vehicle_id' => $request->get('vehicle_id'),
+            'profile_image' => $request->get('profile_image'),
+            'is_blocked' => $request->get('is_blocked'),
+            'is_active' => $request->get('is_active'),
         ]);
 
         User::create([
@@ -136,7 +135,6 @@ class UserController extends Controller
             'info_id' => $result,
             'info_type' => Deliveryman::class,
         ]);
-
 
         return ['message' => 'New Account for deliveryman has been added!'];
     }
@@ -157,7 +155,7 @@ class UserController extends Controller
             'longitude' => $request->get('longitude'),
             'latitude' => $request->get('latitude'),
             'is_available' => $request->get('is_available'),
-            'is_blocked' => $request->get('is_blocked')
+            'is_blocked' => $request->get('is_blocked'),
         ]);
 
         User::create([
@@ -168,7 +166,6 @@ class UserController extends Controller
             'info_id' => $result,
             'info_type' => Deliveryman::class,
         ]);
-
 
         return ['message' => 'New Account for Restaurant has been added!'];
     }

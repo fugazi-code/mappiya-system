@@ -20,7 +20,6 @@ class RestaurantController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -49,7 +48,6 @@ class RestaurantController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -74,16 +72,16 @@ class RestaurantController extends Controller
 
     public function search($name)
     {
-        return Restaurant::where('name', 'like', '%' . $name . '%')->get();
+        return Restaurant::where('name', 'like', '%'.$name.'%')->get();
     }
 
     public function uploadProfileImage(Request $request)
     {
-        $restaurant =  Restaurant::findOrFail($request->get('restaurant_id'));
+        $restaurant = Restaurant::findOrFail($request->get('restaurant_id'));
         $restaurant->media()->delete();
         $restaurant->addMedia($request->file('image'))->toMediaCollection();
         $restaurant->refresh();
-        
+
         return $restaurant->getMedia();
     }
 }

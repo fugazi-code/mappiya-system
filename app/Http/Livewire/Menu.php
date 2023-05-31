@@ -10,18 +10,31 @@ use Livewire\Component;
 class Menu extends Component
 {
     public $restaurant;
+
     public $menus;
+
     public $restaurant_id;
+
     public $menu_id;
+
     public $name;
+
     public $menu_category_id = '';
+
     public $description;
+
     public $selling_price;
+
     public $vendor_price;
+
     public $image;
+
     public $isAvailable;
+
     public $count = 0;
+
     public $categories;
+
     public $categorySelected;
 
     protected $rules = [
@@ -43,7 +56,7 @@ class Menu extends Component
     public function render()
     {
         $this->menus = MenuCategory::find($this->categorySelected)?->menu()->get();
-        
+
         $this->categories = $this->restaurant->menuCategory()->get();
 
         return view('livewire.menu')->layout('layouts.admin');

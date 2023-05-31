@@ -4,8 +4,8 @@ namespace Modules\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProfilePicture;
-use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Http\Request;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class ProfilePictureController extends Controller
 {

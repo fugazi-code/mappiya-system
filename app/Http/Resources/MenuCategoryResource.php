@@ -17,7 +17,7 @@ class MenuCategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'menus' => MenuResource::collection($this->menu)
+            'menus' => MenuResource::collection($this->menu),
         ];
     }
 }

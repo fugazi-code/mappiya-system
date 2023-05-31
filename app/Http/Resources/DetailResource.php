@@ -40,13 +40,13 @@ class DetailResource extends JsonResource
         }
         if ($this->role == 3) {
             $parsed = [
-                'phone_no'=> $this->phone_no,
-                'address'=> $this->address,
-                'plate_no'=> $this->plate_no,
-                'vehicle_id'=> $this->vehicle_id,
-                'profile_image'=> $this->profile_image,
-                'is_blocked'=> $this->is_blocked,
-                'is_active'=> $this->is_active,
+                'phone_no' => $this->phone_no,
+                'address' => $this->address,
+                'plate_no' => $this->plate_no,
+                'vehicle_id' => $this->vehicle_id,
+                'profile_image' => $this->profile_image,
+                'is_blocked' => $this->is_blocked,
+                'is_active' => $this->is_active,
             ];
         }
         if ($this->role == 4) {

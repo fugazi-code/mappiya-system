@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MenuCategoryResource;
+use App\Http\Resources\MenuResource;
 use App\Models\Menu;
 use App\Models\Restaurant;
-use App\Models\MenuCategory;
 use Illuminate\Http\Request;
-use App\Http\Resources\MenuResource;
-use App\Http\Resources\MenuCategoryResource;
 
 class MenuController extends Controller
 {
@@ -41,6 +40,6 @@ class MenuController extends Controller
 
     public function destroy(Menu $menu)
     {
-      return $menu->delete();
+        return $menu->delete();
     }
 }

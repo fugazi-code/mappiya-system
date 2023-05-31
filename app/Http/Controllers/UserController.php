@@ -29,6 +29,7 @@ class UserController extends Controller
 
         return User::where('id', $user_id['id'])->with('info')->get();
     }
+
     /**
      * Remove the specified resource from storage.
      *

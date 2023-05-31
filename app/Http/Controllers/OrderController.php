@@ -13,9 +13,13 @@ use Illuminate\Support\Str;
 class OrderController extends Controller
 {
     public $menu_id;
+
     public $order_id;
+
     public $quantity;
+
     public $items;
+
     public $item;
 
     public function generateZeroes($str)
@@ -24,7 +28,7 @@ class OrderController extends Controller
         $maxLen = 6 - $len;
         $zeroes = '';
         for ($i = 0; $i < $maxLen; $i++) {
-            $zeroes = '0' . $zeroes;
+            $zeroes = '0'.$zeroes;
         }
 
         return $zeroes;
@@ -35,7 +39,7 @@ class OrderController extends Controller
     public function generateOrderNo()
     {
         $order = Order::latest()->first();
-        if (!$order) {
+        if (! $order) {
             $newOrderNo = 1;
         } else {
             $newOrderNo = $order['id'] + 1;
@@ -43,7 +47,7 @@ class OrderController extends Controller
 
         $zeroes = $this->generateZeroes($newOrderNo);
 
-        return 'TN' . $zeroes . $newOrderNo;
+        return 'TN'.$zeroes.$newOrderNo;
     }
 
     /**
@@ -59,7 +63,6 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -101,7 +104,6 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
@@ -128,7 +130,7 @@ class OrderController extends Controller
         // $deliveryman = Deliveryman::select(DB::raw("id, ( 3959 * acos( cos( radians('$latitude') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('$longitude') ) + sin( radians('$latitude') ) * sin( radians( latitude ) ) ) ) AS distance"))->havingRaw('distance < 50')->orderBy('distance')
         //     ->get();
 
-        if (!$deliveryman) {
+        if (! $deliveryman) {
             return response([
                 'message' => 'No deliveryman online',
             ], 401);

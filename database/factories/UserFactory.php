@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\Menu;
-use App\Models\Customer;
-use App\Models\Restaurant;
 use App\Enums\UserRolesEnum;
+use App\Models\Customer;
 use App\Models\Deliveryman;
-use Illuminate\Support\Str;
+use App\Models\Menu;
 use App\Models\MenuCategory;
+use App\Models\Restaurant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -28,7 +28,7 @@ class UserFactory extends Factory
         $role = $this->faker->randomElement([
             UserRolesEnum::SHOP->value,
             UserRolesEnum::RIDER->value,
-            UserRolesEnum::CUSTOMER->value
+            UserRolesEnum::CUSTOMER->value,
         ]);
 
         switch ($role) {

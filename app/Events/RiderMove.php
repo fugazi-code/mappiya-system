@@ -12,11 +12,17 @@ use Illuminate\Queue\SerializesModels;
 class RiderMove implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
     public int $id;
+
     public float $latitude;
+
     public float $longitude;
+
     public string $action;
+
     public string $name;
+
     // public array $riderPos;
     public $params;
 
