@@ -12,6 +12,10 @@ class LoginLivewire extends Component
 
     public $password;
 
+    public $auth;
+
+    public $remember = true;
+
     protected $rules = [
         'email' => 'required|max:255',
         'password' => 'required|max:16',
@@ -26,7 +30,13 @@ class LoginLivewire extends Component
     {
         $this->validate();
 
-        if (Auth::attempt(['email' => $this->email, 'password' => $this->password, 'roles' => UserRolesEnum::CUSTOMER])) {
+        if (Auth::attempt(
+            ['email' => $this->email, 'password' => $this->password, 'roles' => UserRolesEnum::CUSTOMER->value],
+            $this->remember
+        )) {
+            
         }
+
+        $this->auth = 'Login attempt unsuccessful!';
     }
 }

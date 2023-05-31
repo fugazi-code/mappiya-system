@@ -14,7 +14,7 @@ use App\Http\Livewire\Users;
 use Illuminate\Support\Facades\Route;
 
 Route::get('login-admin', [LoginController::class, 'showLoginForm'])->name('login');
-Route::get('login', LoginLivewire::class);
+Route::get('login', LoginLivewire::class)->middleware('guest');
 
 Route::middleware(['auth:web'])
     ->group(function () {
