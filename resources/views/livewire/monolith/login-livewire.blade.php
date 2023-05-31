@@ -1,6 +1,4 @@
-@extends('layouts.blank')
-
-@section('content')
+<div>
     <div class="container-scroller">
         <div class="container-fluid page-body-wrapper full-page-wrapper">
             <div class="content-wrapper d-flex align-items-center auth px-0">
@@ -9,10 +7,10 @@
                         <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                             <div class="d-flex flex-row justify-content-center">
                                 <div class="brand-logo">
-                                    <img src="{{ asset('images/logo.png') }}" alt="logo">
+                                    <img src="{{ asset('images/eben-ezar-logo.jpg') }}" alt="logo">
                                 </div>
                             </div>
-                            <h4>Hello! let's get started! </h4>
+                            <h4>Eben Ezar Login Portal</h4>
                             <h6 class="font-weight-light">Sign in to continue.</h6>
                             <form class="pt-3" method="POST" action="{{ route('login') }}">
                                 @csrf
@@ -76,4 +74,4 @@
         </div>
         <!-- page-body-wrapper ends -->
     </div>
-@endsection
+</div>
