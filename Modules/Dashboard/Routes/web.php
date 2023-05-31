@@ -11,8 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
 use Modules\Dashboard\Http\Livewire\Dashboard;
 
-Route::middleware(['auth:web'])->group(function () {
+Route::middleware(['auth:web', 'role:admin'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
 });

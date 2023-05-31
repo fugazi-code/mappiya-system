@@ -34,7 +34,7 @@ class LoginLivewire extends Component
             ['email' => $this->email, 'password' => $this->password, 'roles' => UserRolesEnum::CUSTOMER->value],
             $this->remember
         )) {
-            
+            return redirect()->to('/directory');
         }
 
         $this->auth = 'Login attempt unsuccessful!';
