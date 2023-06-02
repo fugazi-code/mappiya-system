@@ -13,10 +13,9 @@ use App\Http\Livewire\RegisterLivewire;
 use App\Http\Livewire\Restaurant;
 use App\Http\Livewire\Settings;
 use App\Http\Livewire\Users;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['guest'])->group(function() {
+Route::middleware(['guest'])->group(function () {
     Route::get('login-admin', [LoginController::class, 'showLoginForm']);
     Route::get('login', LoginLivewire::class)->name('login');
     Route::get('register', RegisterLivewire::class)->name('register');
@@ -37,5 +36,5 @@ Route::middleware(['auth:web', 'role:admin'])
 
 Route::middleware(['auth:web', 'role:customer'])
     ->group(function () {
-        Route::get('/directory', DirectoryLivewire::class);
+        Route::get('/directory', DirectoryLivewire::class)->name('directory');
     });

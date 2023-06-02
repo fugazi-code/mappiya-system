@@ -25,7 +25,7 @@ class CustomerController extends Controller
             'roles' => 'in:3,4',
         ]);
         $user = User::find($user_id['id']);
-        if (! $user) {
+        if (!$user) {
             return response([
                 'message' => 'Unable to find user',
             ], 401);

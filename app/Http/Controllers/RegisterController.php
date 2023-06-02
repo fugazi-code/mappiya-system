@@ -37,7 +37,7 @@ class RegisterController extends Controller
                 // dump($request['vehicle_id']);
 
                 $vehicle = Vehicle::where('id', $request['vehicle_id'])->get();
-                if (! $vehicle) {
+                if (!$vehicle) {
                     return response([
                         'message' => 'Invalid vehicle id',
                     ], 401);

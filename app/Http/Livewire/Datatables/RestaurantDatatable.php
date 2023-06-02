@@ -24,8 +24,8 @@ class RestaurantDatatable extends DataTableComponent
                 ->html(),
             Column::make('Name', 'name')
                 ->format(function ($value, $row) {
-                    return '<a href="'.route('menu', ['restaurant_id' => $row->id])
-                    ."\" class=\"btn btn-link\">{$row->name}</a>";
+                    return '<a href="' . route('menu', ['restaurant_id' => $row->id])
+                    . "\" class=\"btn btn-link\">{$row->name}</a>";
                 })
                 ->html()
                 ->searchable()

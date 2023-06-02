@@ -14,7 +14,7 @@ enum UserRolesEnum: int
         $names = explode('|', $name);
         $constant = [];
         foreach ($names as $item) {
-            $constant[] = constant('self::'.str($item)->upper())->value;
+            $constant[] = constant('self::' . str($item)->upper())->value;
         }
 
         return collect($constant);

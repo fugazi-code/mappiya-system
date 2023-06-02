@@ -72,7 +72,7 @@ class RestaurantController extends Controller
 
     public function search($name)
     {
-        return Restaurant::where('name', 'like', '%'.$name.'%')->get();
+        return Restaurant::where('name', 'like', '%' . $name . '%')->get();
     }
 
     public function uploadProfileImage(Request $request)
