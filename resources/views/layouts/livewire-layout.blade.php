@@ -18,7 +18,7 @@
     @livewireStyles
 </head>
 
-<body>
+<body style="background-color: #F5F7FF;">
 
     {{ $slot }}
 
@@ -36,6 +36,7 @@
     <script src="/theme/js/template.js"></script>
     <script src="/theme/js/settings.js"></script>
     <script src="/theme/js/todolist.js"></script>
+    @stack('scripts')
 </body>
 
 </html>

@@ -63,6 +63,9 @@
                                         {{ __('Login') }}
                                     </button>
                                 </div>
+                                <div class="mt-1 text-center">
+                                    Do not Have an Account Yet? <a href="{{ route('register') }}">Click Here</a>
+                                </div>
                                 {{--                                <div class="mb-2"> --}}
                                 {{--                                    <button type="button" class="btn btn-block btn-facebook auth-form-btn"> --}}
                                 {{--                                        <i class="ti-facebook mr-2"></i>Connect using facebook --}}
