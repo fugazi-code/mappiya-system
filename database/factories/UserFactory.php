@@ -35,7 +35,7 @@ class UserFactory extends Factory
             case 2:
                 $factory = Restaurant::factory()
                     ->afterCreating(function (Restaurant $model) {
-                        $model->addMedia($this->faker->image())->toMediaCollection('banner');
+                       // $model->addMedia(fake()->imageUrl())->toMediaCollection('banner');
                     })
                     ->has(
                         MenuCategory::factory(5)->has(Menu::factory(5))

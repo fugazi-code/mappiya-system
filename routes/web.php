@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guest'])->group(function () {
     Route::get('login-admin', [LoginController::class, 'showLoginForm']);
+    Route::post('login-admin', [LoginController::class, 'login'])->name('login-admin');
+    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+
     Route::get('login', LoginLivewire::class)->name('login');
     Route::get('register', RegisterLivewire::class)->name('register');
 });
